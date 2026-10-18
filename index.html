@@ -1,0 +1,1355 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#111315">
+  <meta name="description" content="Nuvora.offstage — turning creator expertise into digital products.">
+  <title>Nuvora.offstage — From Audience to Asset</title>
+  <!-- Edit all page styles in this standalone style block. -->
+  <style>
+
+:root {
+  --blue: #0047E1;
+  --lime: #A1FF00;
+  --paper: #F7F8FA;
+  --ink: #111315;
+  --gray: #8A9099;
+  --line: #E5E7EB;
+  --mono: ui-monospace, "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+  --sans: "Manrope", "Avenir Next", "Segoe UI", system-ui, Arial, sans-serif;
+  --wrap: 1320px;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { margin: 0; background: var(--ink); color: var(--ink); font-family: var(--sans); font-weight: 400; -webkit-font-smoothing: antialiased; }
+img { display: block; max-width: 100%; }
+a { color: inherit; }
+button, a { -webkit-tap-highlight-color: transparent; }
+::selection { color: var(--ink); background: var(--lime); }
+.wrap { width: min(calc(100% - 104px), var(--wrap)); margin-inline: auto; }
+.chapter { position: relative; overflow: hidden; padding: clamp(76px, 8vw, 128px) 0; }
+.chapter--dark { color: var(--paper); background: var(--ink); }
+.chapter--light { color: var(--ink); background: var(--paper); }
+.skip-link { position: fixed; z-index: 50; top: 12px; left: 12px; padding: 12px 16px; color: var(--ink); background: var(--lime); transform: translateY(-180%); }
+.skip-link:focus { transform: translateY(0); }
+
+/* Cover */
+.hero { min-height: 100svh; padding: 20px 0 26px; display: flex; flex-direction: column; justify-content: space-between; isolation: isolate; }
+.hero::after { position: absolute; z-index: -1; content: ''; inset: 0; pointer-events: none; background: radial-gradient(ellipse at 74% 49%, rgba(0,71,225,.13), transparent 40%), linear-gradient(90deg, transparent 0 70%, rgba(247,248,250,.018) 70% 70.1%, transparent 70.1%); }
+.hero-grid { position: absolute; z-index: -1; inset: 0; opacity: .16; background-image: linear-gradient(rgba(138,144,153,.17) 1px, transparent 1px), linear-gradient(90deg, rgba(138,144,153,.17) 1px, transparent 1px); background-size: 80px 80px; mask-image: linear-gradient(to bottom, transparent, #000 18%, #000 88%, transparent); }
+.site-header { display: flex; align-items: center; gap: 20px; position: relative; z-index: 3; }
+.official-logo { flex: 0 0 96px; width: 96px; height: 96px; background: var(--paper); display: grid; place-items: center; overflow: hidden; }
+.official-logo img { width: 100%; height: 100%; object-fit: contain; }
+.header-meta { display: grid; gap: 5px; color: var(--gray); font: 9px/1.2 var(--mono); letter-spacing: .06em; }
+.header-meta .brand-name { color: var(--paper); font: 600 12px/1 var(--sans); letter-spacing: .06em; }
+.header-nav { margin-left: auto; display: flex; align-items: center; gap: clamp(18px, 3vw, 45px); font: 10px/1 var(--mono); letter-spacing: .03em; }
+.header-nav a { text-decoration: none; color: var(--gray); transition: color .2s ease; }
+.header-nav a:hover, .header-nav a:focus-visible { color: var(--paper); }
+.header-nav .nav-cta { color: var(--paper); border-bottom: 1px solid var(--lime); padding: 0 0 9px; }
+.nav-cta span { color: var(--lime); margin-left: 8px; }
+.hero-copy { width: min(calc(100% - 104px), var(--wrap)); position: relative; z-index: 2; margin-top: clamp(54px, 7vh, 90px); margin-bottom: auto; padding-top: clamp(30px, 5vh, 62px); }
+.eyebrow, .section-kicker, .micro-label, .product-disclosure, .hero-footer, .scroll-cue, .art-index, .cover-topline, .cover-bottom, .page-meta, .page-foot, .product-caption, .product-components span, .product-disclosure, .stage-example > span, .metric-list > span, .journey-label, .journey-node > span, .journey-note, .contribution-heading > span, .terms-index, .chart-axis, .scenario-label, .axis-ticks, .revenue-disclaimer, .revenue-footnote, .contact-overline, .services-row article > span, .site-footer { font-family: var(--mono); }
+.eyebrow { display: flex; align-items: center; gap: 10px; color: var(--gray); font-size: 10px; letter-spacing: .1em; margin: 0 0 25px; }
+.eyebrow-mark, .lime-square { display: inline-block; width: 8px; height: 8px; background: var(--lime); flex: 0 0 8px; }
+.hero h1 { margin: 0; max-width: 990px; font-size: clamp(4.3rem, 10.5vw, 9.6rem); font-weight: 800; line-height: .84; letter-spacing: -.095em; position: relative; }
+.hero h1 .word-audience { color: var(--paper); }
+.hero h1 .word-asset { color: var(--lime); }
+.hero-bottom { display: flex; align-items: flex-end; justify-content: space-between; gap: 32px; max-width: 790px; margin-top: clamp(34px, 5vh, 58px); }
+.hero-subtitle { margin: 0 0 16px; color: var(--gray); font-size: clamp(14px, 1.35vw, 18px); }
+.hero-promise { margin: 0; font-size: clamp(16px, 1.75vw, 22px); line-height: 1.45; }
+.hero-promise span { color: var(--gray); }
+.hero-promise strong { color: var(--paper); font-weight: 600; }
+.scroll-cue { display: flex; align-items: center; gap: 17px; margin-bottom: 3px; color: var(--gray); text-decoration: none; font-size: 9px; letter-spacing: .08em; white-space: nowrap; }
+.scroll-cue b { width: 30px; height: 30px; display: grid; place-items: center; color: var(--ink); background: var(--lime); font: 16px/1 var(--sans); }
+.hero-art { position: absolute; z-index: 1; right: max(2.5vw, calc((100vw - var(--wrap)) / 2)); top: 23%; width: min(47vw, 620px); opacity: .88; pointer-events: none; }
+.hero-art svg { width: 100%; height: auto; overflow: visible; }
+.art-index { position: absolute; right: 6px; bottom: 0; color: var(--gray); font-size: 8px; letter-spacing: .1em; }
+.hero-footer { width: min(calc(100% - 104px), var(--wrap)); display: flex; justify-content: space-between; gap: 18px; color: var(--gray); font-size: 8px; letter-spacing: .09em; border-top: 1px solid rgba(138,144,153,.28); padding-top: 15px; margin-top: 70px; }
+.scroll-progress { position: fixed; z-index: 20; left: 0; right: 0; bottom: 0; height: 2px; pointer-events: none; }
+.scroll-progress span { display: block; width: 0; height: 100%; background: var(--lime); transform-origin: left; }
+
+/* Shared editorial language */
+.section-kicker { display: flex; align-items: center; gap: 16px; margin-bottom: clamp(40px, 5vw, 72px); color: var(--gray); font-size: 9px; letter-spacing: .11em; }
+.section-kicker > span:first-child { color: var(--blue); white-space: nowrap; }
+.section-kicker--dark > span:first-child { color: var(--lime); }
+.kicker-rule { height: 1px; background: currentColor; opacity: .34; flex: 1; }
+h2 { margin: 0; font-size: clamp(2.8rem, 5.7vw, 5.9rem); line-height: .98; letter-spacing: -.075em; font-weight: 700; }
+h2 em, h3 em { font-style: normal; color: var(--blue); }
+.section-kicker--dark + .product-heading h2 em, .business h2 em { color: var(--lime); }
+.section-intro { max-width: 420px; color: var(--gray); font-size: clamp(14px, 1.25vw, 17px); line-height: 1.7; }
+
+/* Opportunity */
+.opportunity { padding-top: clamp(80px, 8vw, 120px); padding-bottom: clamp(85px, 9vw, 132px); }
+.opportunity-intro { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(260px, .7fr); gap: clamp(48px, 9vw, 140px); align-items: end; }
+.opportunity-intro h2 { font-size: clamp(3.15rem, 6vw, 6.1rem); }
+.opportunity-intro h2 em { color: var(--blue); }
+.opportunity-copy { max-width: 430px; color: #555B63; font-size: clamp(13px, 1.15vw, 15px); line-height: 1.7; padding-bottom: 7px; }
+.opportunity-copy p { margin: 0 0 14px; }
+.creator-strip { margin-top: clamp(48px, 7vw, 90px); display: grid; grid-template-columns: 1.05fr .75fr .78fr 1.2fr 1.15fr; border-top: 1px solid #C9CDD3; border-bottom: 1px solid #C9CDD3; }
+.creator-strip > div { min-height: 116px; padding: 18px 20px; border-right: 1px solid #D7DADF; display: flex; flex-direction: column; justify-content: space-between; gap: 18px; }
+.creator-strip > div:first-child { padding-left: 0; }
+.creator-strip > div:last-child { border-right: 0; }
+.creator-mark span, .creator-fact > span { color: var(--gray); font: 9px/1.4 var(--mono); letter-spacing: .06em; }
+.creator-mark b { color: var(--blue); font-size: clamp(17px, 2vw, 25px); letter-spacing: -.04em; }
+.creator-mark small { font: 8px/1.3 var(--mono); color: var(--gray); }
+.creator-fact strong { font-size: clamp(12px, 1.1vw, 15px); line-height: 1.4; font-weight: 700; }
+.creator-fact strong small { font: 9px/1 var(--mono); color: var(--gray); }
+.creator-fact .status-no { color: var(--blue); font-size: 11px; }
+.hypothetical-note { display: flex; align-items: center; gap: 10px; margin: 13px 0 0; color: var(--gray); font: 9px/1.5 var(--mono); }
+.opportunity-flow { display: grid; grid-template-columns: 1fr 28px 1fr 28px 1fr 28px 1fr; align-items: center; gap: 13px; margin-top: clamp(52px, 6vw, 78px); }
+.flow-step { min-height: 112px; display: grid; grid-template-columns: 34px 1fr; align-content: start; gap: 10px 8px; padding: 14px 0; border-top: 2px solid #C9CDD3; }
+.flow-step > span { color: var(--blue); font: 10px/1.3 var(--mono); }
+.flow-step b { font-size: clamp(13px, 1.35vw, 17px); line-height: 1.25; letter-spacing: -.03em; }
+.flow-step small { grid-column: 2; color: var(--gray); font-size: 10px; }
+.flow-step--asset { border-color: var(--blue); }
+.flow-step--asset > span { color: var(--blue); }
+.flow-connector { color: var(--blue); font-size: 22px; text-align: center; padding-bottom: 24px; }
+.insight-line { display: grid; grid-template-columns: minmax(140px, .36fr) 1fr; gap: 20px; align-items: baseline; border-top: 1px solid #D7DADF; margin-top: 13px; padding-top: 20px; }
+.insight-line > span { color: var(--blue); font: 9px/1.4 var(--mono); letter-spacing: .08em; }
+.insight-line p { margin: 0; font-size: clamp(16px, 2vw, 24px); line-height: 1.45; letter-spacing: -.035em; }
+
+/* Product workbench */
+.product { padding-bottom: clamp(78px, 8vw, 120px); }
+.product-heading { display: flex; justify-content: space-between; align-items: end; gap: 36px; }
+.product-heading h2 { font-size: clamp(2.8rem, 5.4vw, 5.4rem); }
+.product-heading .section-intro { margin: 24px 0 0; }
+.product-description { max-width: 610px; margin: 12px 0 0; color: #C3C7CE; font-size: 14px; line-height: 1.65; }
+.product-price { min-width: 190px; padding: 0 0 4px 22px; border-left: 1px solid rgba(138,144,153,.4); display: flex; flex-direction: column; gap: 7px; }
+.product-price span, .product-price small { color: var(--gray); font: 8px/1.4 var(--mono); letter-spacing: .08em; }
+.product-price strong { color: var(--lime); font-size: 30px; line-height: 1; letter-spacing: -.06em; }
+.product-stage { margin-top: clamp(44px, 6vw, 78px); border: 1px solid rgba(138,144,153,.28); background: rgba(247,248,250,.025); padding: clamp(18px, 3.8vw, 50px); }
+.product-kit { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); align-items: start; gap: clamp(12px, 1.65vw, 24px); perspective: 1200px; }
+.mockup-cover, .sample-page { grid-column: span 2; min-width: 0; aspect-ratio: .8 / 1; box-shadow: 0 20px 45px rgba(0,0,0,.32); position: relative; overflow: hidden; }
+.planner-page { grid-column: 2 / span 2; }
+.challenge-page { grid-column: 4 / span 2; }
+.mockup-cover { color: var(--paper); background: var(--blue); padding: 8% 8%; display: flex; flex-direction: column; justify-content: space-between; isolation: isolate; }
+.mockup-cover::before { content: ''; position: absolute; z-index: -1; width: 140%; aspect-ratio: 1; left: 20%; top: 30%; border: 1px solid rgba(247,248,250,.24); border-radius: 50%; box-shadow: 0 0 0 18px rgba(247,248,250,.03), 0 0 0 38px rgba(247,248,250,.025); }
+.cover-topline, .cover-bottom { display: flex; flex-direction: column; gap: 5px; color: rgba(247,248,250,.76); font-size: 8px; letter-spacing: .08em; }
+.cover-number { margin-top: auto; color: var(--lime); font-size: clamp(30px, 5vw, 70px); line-height: .8; letter-spacing: -.09em; font-weight: 800; }
+.cover-number span { display: block; font: 9px/1.8 var(--mono); letter-spacing: .14em; }
+.mockup-cover h3 { margin: 11px 0 0; font-size: clamp(20px, 3.1vw, 45px); line-height: .91; letter-spacing: -.08em; }
+.mockup-cover h3 em { color: var(--lime); font-style: normal; }
+.mockup-cover > p { max-width: 160px; font-size: clamp(7px, .8vw, 11px); line-height: 1.4; color: rgba(247,248,250,.78); }
+.cover-bottom { border-top: 1px solid rgba(247,248,250,.4); padding-top: 9px; }
+.cover-orbit { position: absolute; right: -13%; top: 16%; width: 72%; aspect-ratio: 1; border: 1px solid rgba(161,255,0,.6); border-radius: 50%; transform: rotate(-31deg); }
+.cover-orbit i, .cover-orbit b, .cover-orbit span { position: absolute; display: block; border: 1px solid rgba(247,248,250,.3); border-radius: 50%; inset: 17%; }
+.cover-orbit b { inset: 34%; border-color: rgba(161,255,0,.7); }
+.cover-orbit span { inset: 48%; background: var(--lime); border: 0; }
+.sample-page { color: var(--ink); background: var(--paper); padding: 8%; }
+.sample-page::after { content: ''; position: absolute; bottom: 0; left: 0; width: 100%; height: 5px; background: var(--blue); }
+.page-meta { display: flex; justify-content: space-between; gap: 5px; color: var(--gray); font-size: 8px; letter-spacing: .04em; padding-bottom: 9px; border-bottom: 1px solid var(--line); }
+.sample-page h4 { margin: 14px 0 8px; font-size: clamp(18px, 2vw, 25px); line-height: .98; letter-spacing: -.065em; }
+.guide-page > p { font-size: 11px; line-height: 1.5; color: #555B63; }
+.guide-steps { display: grid; gap: 5px; margin-top: 13px; }
+.guide-steps span { border-top: 1px solid #D7DADF; padding-top: 5px; font: 8px/1.2 var(--mono); }
+.guide-steps b { color: var(--blue); margin-right: 6px; }
+.page-foot { position: absolute; bottom: 11%; left: 8%; color: var(--gray); font-size: 7px; letter-spacing: .04em; }
+.tracker-page h4 { margin-bottom: 12px; }
+.tracker-table { display: grid; gap: 0; }
+.tracker-row { display: grid; grid-template-columns: .8fr .9fr .8fr; gap: 3px; border-top: 1px solid #D7DADF; padding: 5px 0; font-size: 9px; color: #555B63; }
+.tracker-row b { color: var(--ink); font-weight: 600; text-align: right; }
+.tracker-head { color: var(--gray); font: 7px/1.3 var(--mono); }
+.tracker-total { display: flex; justify-content: space-between; gap: 3px; border-top: 1px solid var(--blue); padding-top: 7px; margin-top: 5px; font-size: clamp(5px, .55vw, 7px); }
+.tracker-total span { color: var(--gray); font: 7px/1.4 var(--mono); }
+.planner-grid { display: grid; gap: 9px; margin-top: 13px; }
+.planner-grid > div { min-height: 39px; padding: 5px 6px; border: 1px solid #D7DADF; display: flex; flex-direction: column; justify-content: space-between; }
+.planner-grid span { color: var(--blue); font: 8px/1.2 var(--mono); }
+.planner-grid strong { font: 600 10px/1.2 var(--sans); }
+.planner-grid small { color: var(--gray); font-size: 8px; }
+.planner-savings { border-color: var(--blue) !important; }
+.planner-note { display: flex; align-items: center; gap: 7px; margin-top: 9px; color: var(--gray); font-size: 9px; line-height: 1.4; }
+.planner-note i { display: block; width: 8px; height: 8px; background: var(--lime); flex: 0 0 8px; }
+.challenge-page h4 { margin-bottom: 12px; }
+.challenge-list { list-style: none; padding: 0; margin: 0; display: grid; gap: 0; }
+.challenge-list li { display: grid; grid-template-columns: 11px 1fr; column-gap: 5px; align-items: start; padding: 6px 0; border-top: 1px solid #D7DADF; font-size: 9px; line-height: 1.3; }
+.challenge-list small { grid-column: 2; color: var(--gray); font: 7px/1.4 var(--mono); margin-top: 2px; }
+.check-box { display: grid; place-items: center; width: 9px; height: 9px; border: 1px solid var(--blue); color: var(--blue); font: 7px/1 var(--sans); }
+.challenge-progress { display: flex; justify-content: space-between; margin-top: 8px; padding-top: 6px; border-top: 1px solid var(--blue); color: var(--gray); font: 7px/1.2 var(--mono); }
+.challenge-progress b { color: var(--blue); }
+.product-caption { display: flex; justify-content: space-between; gap: 15px; margin-top: 19px; color: var(--gray); font-size: 8px; letter-spacing: .09em; }
+.product-caption span:first-child { color: var(--lime); }
+.product-components { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; margin-top: 32px; }
+.product-components > div { display: grid; grid-template-columns: 28px 1fr; gap: 6px 5px; border-top: 1px solid rgba(138,144,153,.35); padding-top: 12px; }
+.product-components span { color: var(--lime); font-size: 9px; }
+.product-components b { color: var(--paper); font-size: 10px; letter-spacing: .035em; }
+.product-components small { grid-column: 2; color: var(--gray); font-size: 10px; line-height: 1.5; }
+.product-disclosure { margin: 30px 0 0; color: var(--gray); font-size: 9px; letter-spacing: .11em; }
+
+/* Marketing system */
+.marketing { padding-bottom: clamp(80px, 8vw, 120px); }
+.marketing-heading { display: flex; justify-content: space-between; align-items: end; gap: 50px; }
+.marketing-heading h2 { font-size: clamp(3.1rem, 6vw, 6.2rem); }
+.marketing-heading .section-intro { margin: 0 0 8px; }
+.marketing-flow { display: grid; grid-template-columns: repeat(4, 1fr); margin-top: clamp(52px, 7vw, 92px); border-top: 1px solid #C9CDD3; }
+.marketing-stage { position: relative; padding: 0 20px 0 0; margin-right: 20px; }
+.marketing-stage:not(:last-child)::after { content: '→'; position: absolute; top: -17px; right: -4px; color: var(--blue); font-size: 21px; background: var(--paper); padding: 0 4px; }
+.stage-marker { height: 32px; display: flex; align-items: center; justify-content: space-between; }
+.stage-marker span { color: var(--blue); font: 10px/1 var(--mono); }
+.stage-marker i { display: block; width: 7px; height: 7px; background: var(--blue); border-radius: 50%; }
+.marketing-stage h3 { margin: 18px 0 12px; font-size: clamp(17px, 2vw, 23px); letter-spacing: -.04em; }
+.stage-objective { min-height: 62px; margin: 0; color: #555B63; font-size: 12px; line-height: 1.6; }
+.stage-example { min-height: 145px; margin-top: 18px; padding: 14px 12px; background: #ECEFF3; border-left: 2px solid var(--blue); }
+.stage-example > span, .metric-list > span { color: var(--blue); font-size: 8px; letter-spacing: .06em; }
+.stage-example blockquote { margin: 10px 0 0; font-size: 14px; line-height: 1.45; letter-spacing: -.025em; }
+.stage-example p { margin: 10px 0 0; color: #555B63; font-size: 11px; line-height: 1.55; }
+.metric-list { min-height: 145px; margin-top: 18px; padding: 14px 12px; background: #ECEFF3; border-left: 2px solid var(--lime); }
+.metric-list > span { color: #555B63; }
+.metric-list p { margin: 10px 0 0; font-size: 10px; line-height: 1.8; }
+.journey-band { display: grid; grid-template-columns: 1fr 1.15fr 35px 1.15fr 1fr; align-items: center; gap: 18px; margin-top: 40px; padding: 20px 0; border-top: 1px solid #C9CDD3; border-bottom: 1px solid #C9CDD3; }
+.journey-label { display: grid; gap: 7px; color: var(--blue); font-size: 9px; letter-spacing: .06em; }
+.journey-label small { color: var(--gray); font-size: 8px; }
+.journey-node { display: grid; grid-template-columns: 27px 1fr; gap: 2px 8px; align-items: baseline; }
+.journey-node > span { grid-row: span 2; align-self: center; color: var(--blue); font-size: 9px; }
+.journey-node b { font-size: 12px; }
+.journey-node small { grid-column: 2; color: var(--gray); font-size: 10px; }
+.journey-node--highlight b { color: var(--blue); }
+.journey-arrow { color: var(--blue); font-size: 19px; text-align: center; }
+.journey-note { color: var(--gray); font-size: 8px; line-height: 1.5; text-align: right; }
+.marketing-closer { display: flex; align-items: flex-start; gap: 15px; margin-top: 33px; }
+.marketing-closer .lime-square { margin-top: 10px; }
+.marketing-closer p { margin: 0; font-size: clamp(19px, 2.4vw, 29px); line-height: 1.3; letter-spacing: -.04em; color: var(--gray); }
+.marketing-closer strong { color: var(--ink); font-weight: 600; }
+
+/* Monetization */
+.business { padding-bottom: clamp(80px, 9vw, 132px); }
+.business-heading { display: flex; justify-content: space-between; align-items: end; gap: 52px; }
+.business-heading h2 { font-size: clamp(3.2rem, 6vw, 6.15rem); }
+.business-heading .section-intro { margin: 0 0 7px; }
+.contribution-model { display: grid; grid-template-columns: 1fr 80px 1fr; gap: 32px; align-items: center; margin-top: clamp(50px, 6vw, 76px); }
+.contribution-side { padding: 22px 24px 20px 0; border-top: 1px solid rgba(138,144,153,.42); border-bottom: 1px solid rgba(138,144,153,.42); }
+.contribution-side--nuvora { padding-left: 25px; border-left: 1px solid rgba(138,144,153,.35); }
+.contribution-heading > span { color: var(--gray); font-size: 8px; letter-spacing: .12em; }
+.contribution-heading h3 { margin: 10px 0 18px; font-size: 25px; letter-spacing: -.05em; }
+.contribution-side--nuvora .contribution-heading h3 { color: var(--lime); }
+.contribution-side ul { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 10px 20px; }
+.contribution-side li { padding-left: 14px; position: relative; color: #C3C7CE; font-size: 11px; line-height: 1.5; }
+.contribution-side li::before { position: absolute; left: 0; top: .55em; content: ''; width: 4px; height: 4px; background: var(--blue); }
+.contribution-side--nuvora li::before { background: var(--lime); }
+.contribution-join { position: relative; height: 100%; min-height: 100px; display: grid; place-items: center; }
+.contribution-join i { position: absolute; width: 1px; top: 0; bottom: 0; left: 50%; background: rgba(138,144,153,.34); }
+.contribution-join span { position: relative; z-index: 1; display: grid; place-items: center; width: 42px; height: 42px; color: var(--lime); background: var(--ink); border: 1px solid rgba(138,144,153,.48); font-size: 22px; font-weight: 300; }
+.terms-note { display: grid; grid-template-columns: 180px 1fr; gap: 22px; margin-top: 20px; padding: 15px 18px; background: rgba(247,248,250,.045); border-left: 2px solid var(--lime); }
+.terms-index { color: var(--lime); font-size: 8px; letter-spacing: .09em; padding-top: 3px; }
+.terms-note p { margin: 0; max-width: 850px; color: #C3C7CE; font-size: 11px; line-height: 1.65; }
+.revenue-block { margin-top: clamp(66px, 8vw, 100px); }
+.revenue-head { display: flex; justify-content: space-between; align-items: end; gap: 32px; margin-bottom: 28px; }
+.micro-label { color: var(--lime); font-size: 8px; letter-spacing: .12em; }
+.revenue-head h3 { margin: 10px 0 0; font-size: clamp(25px, 3.6vw, 43px); line-height: 1.02; letter-spacing: -.065em; }
+.revenue-head h3 em { color: var(--paper); }
+.unit-price { min-width: 190px; border-left: 1px solid rgba(138,144,153,.4); padding-left: 20px; display: grid; gap: 5px; }
+.unit-price span, .unit-price small { color: var(--gray); font: 8px/1.4 var(--mono); letter-spacing: .06em; }
+.unit-price b { font-size: 22px; color: var(--paper); }
+.revenue-chart { border-top: 1px solid rgba(138,144,153,.38); border-bottom: 1px solid rgba(138,144,153,.38); padding: 14px 0 8px; }
+.chart-axis { display: grid; grid-template-columns: 180px 1fr 180px; gap: 20px; color: var(--gray); font-size: 8px; letter-spacing: .06em; padding-bottom: 12px; }
+.axis-end { text-align: right; }
+.chart-row { display: grid; grid-template-columns: 180px 1fr 180px; align-items: center; gap: 20px; min-height: 50px; border-top: 1px solid rgba(138,144,153,.18); }
+.scenario-label { display: flex; justify-content: space-between; gap: 7px; color: var(--gray); font-size: 8px; letter-spacing: .04em; }
+.scenario-label b { color: var(--paper); font-weight: 400; }
+.bar-track { height: 9px; background: rgba(138,144,153,.2); position: relative; }
+.bar-track i { position: absolute; inset: 0 auto 0 0; display: block; background: var(--blue); }
+.chart-row--max .bar-track i { background: var(--lime); }
+.chart-row strong { font-size: 14px; text-align: right; letter-spacing: -.035em; font-weight: 600; }
+.axis-ticks { display: flex; justify-content: space-between; margin-left: 200px; padding-top: 9px; color: var(--gray); font-size: 8px; }
+.revenue-disclaimer { margin: 19px 0 0; color: var(--lime); font-size: 9px; line-height: 1.7; letter-spacing: .06em; }
+.revenue-footnote { max-width: 820px; margin: 8px 0 0; color: var(--gray); font-size: 9px; line-height: 1.7; }
+
+/* Closing */
+.contact { padding-bottom: 28px; }
+.contact-heading { max-width: 900px; position: relative; }
+.contact-overline { margin: 0 0 12px; color: var(--blue); font-size: 10px; letter-spacing: .12em; }
+.contact-heading h2 { font-size: clamp(4.1rem, 9.2vw, 9rem); line-height: .85; letter-spacing: -.09em; }
+.contact-heading h2 em { color: var(--blue); }
+.contact-copy { max-width: 510px; margin: 27px 0 0; color: #555B63; font-size: clamp(14px, 1.25vw, 17px); line-height: 1.7; }
+.services-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; margin-top: clamp(48px, 6vw, 78px); border-top: 1px solid #C9CDD3; }
+.services-row article { padding: 17px 15px 0 0; }
+.services-row article > span { color: var(--blue); font-size: 8px; letter-spacing: .05em; }
+.services-row article p { max-width: 310px; margin: 13px 0 0; font-size: 14px; line-height: 1.55; letter-spacing: -.02em; }
+.contact-cta { display: flex; justify-content: space-between; align-items: end; gap: 36px; margin-top: clamp(56px, 7vw, 90px); padding: 28px 0 30px; border-top: 1px solid #C9CDD3; border-bottom: 1px solid #C9CDD3; }
+.contact-cta h3 { margin: 10px 0 0; font-size: clamp(28px, 4vw, 48px); line-height: .99; letter-spacing: -.07em; }
+.primary-button { display: inline-flex; align-items: center; justify-content: space-between; gap: 38px; min-width: 250px; padding: 17px 20px; background: var(--blue); color: var(--paper); text-decoration: none; font: 10px/1 var(--mono); letter-spacing: .045em; transition: background .2s ease, color .2s ease, transform .2s ease; }
+.primary-button span { color: var(--lime); font-size: 15px; }
+.primary-button:hover, .primary-button:focus-visible { background: var(--lime); color: var(--ink); transform: translateY(-2px); }
+.primary-button:hover span, .primary-button:focus-visible span { color: var(--ink); }
+.site-footer { display: grid; grid-template-columns: 90px 1fr auto; align-items: center; gap: 32px; padding: 26px 0 0; color: var(--gray); }
+.footer-logo { width: 96px; height: 96px; background: var(--paper); border: 1px solid #D7DADF; }
+.footer-logo img { width: 100%; height: 100%; object-fit: contain; }
+.footer-contact { display: grid; gap: 8px; justify-self: start; }
+.footer-contact > span { color: var(--blue); font-size: 8px; letter-spacing: .08em; margin-bottom: 2px; }
+.footer-contact a { color: var(--ink); text-decoration: none; font-size: 9px; letter-spacing: .03em; }
+.footer-contact a:hover, .footer-contact a:focus-visible { color: var(--blue); }
+.copyright { margin: 0; font-size: 8px; line-height: 1.7; text-align: right; }
+
+/* Responsive refinements */
+@media (max-width: 1050px) {
+  .wrap, .hero-copy, .hero-footer { width: min(calc(100% - 64px), var(--wrap)); }
+  .hero-art { right: 1vw; width: 49vw; opacity: .52; top: 29%; }
+  .hero h1 { font-size: clamp(4rem, 10vw, 7.4rem); }
+  .creator-strip { grid-template-columns: 1fr 1fr 1fr; }
+  .creator-strip > div:nth-child(3) { border-right: 0; }
+  .creator-strip > div:nth-child(4), .creator-strip > div:nth-child(5) { border-top: 1px solid #D7DADF; }
+  .creator-strip > div:nth-child(4) { padding-left: 0; }
+  .product-kit { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .planner-page, .challenge-page { grid-column: auto; }
+  .marketing-stage { margin-right: 13px; padding-right: 12px; }
+  .chart-axis, .chart-row { grid-template-columns: 150px 1fr 160px; gap: 14px; }
+  .axis-ticks { margin-left: 164px; }
+}
+
+@media (max-width: 720px) {
+  .wrap, .hero-copy, .hero-footer { width: min(calc(100% - 40px), var(--wrap)); }
+  .chapter { padding: 68px 0; }
+  .hero { min-height: 820px; padding: 16px 0 20px; }
+  .site-header { gap: 12px; align-items: center; }
+  .official-logo { flex-basis: 76px; width: 76px; height: 76px; }
+  .header-meta { font-size: 7px; }
+  .header-meta .brand-name { font-size: 10px; }
+  .header-nav { display: none; }
+  .hero-copy { padding-top: 50px; margin-top: 0; }
+  .hero h1 { font-size: clamp(3.65rem, 14.1vw, 6.3rem); letter-spacing: -.09em; }
+  .hero-art { width: 75vw; top: auto; right: -10vw; bottom: 185px; opacity: .37; }
+  .hero-art .art-index { display: none; }
+  .eyebrow { font-size: 8px; line-height: 1.5; }
+  .hero-bottom { display: block; margin-top: 32px; }
+  .hero-subtitle { font-size: 14px; }
+  .hero-promise { font-size: 18px; }
+  .scroll-cue { margin-top: 25px; }
+  .hero-footer { flex-wrap: wrap; justify-content: flex-start; gap: 7px 18px; font-size: 7px; margin-top: 35px; }
+  .section-kicker { gap: 9px; font-size: 7px; margin-bottom: 38px; }
+  .section-kicker > span:last-child { display: none; }
+  .opportunity-intro { grid-template-columns: 1fr; gap: 25px; }
+  .opportunity-intro h2 { font-size: clamp(2.7rem, 11vw, 4.7rem); }
+  .opportunity-copy { max-width: 100%; font-size: 13px; }
+  .creator-strip { grid-template-columns: 1fr 1fr; }
+  .creator-strip > div { min-height: 105px; padding: 14px; }
+  .creator-strip > div:first-child { padding-left: 0; }
+  .creator-strip > div:nth-child(2), .creator-strip > div:nth-child(4) { border-right: 1px solid #D7DADF; }
+  .creator-strip > div:nth-child(3) { border-right: 0; }
+  .creator-strip > div:nth-child(4) { padding-left: 14px; }
+  .creator-strip > div:nth-child(5) { grid-column: 1 / -1; padding-left: 0; border-top: 1px solid #D7DADF; border-right: 0; }
+  .creator-mark b { font-size: 20px; }
+  .creator-fact strong { font-size: 11px; }
+  .hypothetical-note { font-size: 8px; align-items: flex-start; }
+  .opportunity-flow { grid-template-columns: 1fr; gap: 0; margin-top: 43px; }
+  .flow-step { min-height: 70px; grid-template-columns: 34px 1fr; border-top: 1px solid #C9CDD3; padding: 13px 0; }
+  .flow-step b { grid-row: span 2; align-self: center; }
+  .flow-step small { grid-column: 3; align-self: center; font-size: 9px; }
+  .flow-connector { height: 16px; padding: 0; font-size: 14px; line-height: 12px; transform: rotate(90deg); transform-origin: center; }
+  .insight-line { grid-template-columns: 1fr; gap: 10px; margin-top: 20px; }
+  .insight-line p { font-size: 17px; }
+  .product-heading, .marketing-heading, .business-heading { display: block; }
+  .product-heading h2, .marketing-heading h2, .business-heading h2 { font-size: clamp(2.7rem, 11vw, 4.8rem); }
+  .product-heading .section-intro { margin-top: 18px; }
+  .product-price { margin-top: 25px; min-width: 0; width: fit-content; }
+  .product-stage { padding: 14px; margin-top: 35px; }
+  .product-kit { grid-template-columns: 1fr; gap: 16px; }
+  .product-kit > *, .planner-page, .challenge-page { grid-column: 1; }
+  .mockup-cover, .sample-page { aspect-ratio: .88 / 1; }
+  .mockup-cover { padding: 8%; }
+  .cover-topline, .cover-bottom { font-size: 9px; }
+  .cover-number { font-size: clamp(52px, 14vw, 76px); }
+  .mockup-cover h3 { font-size: clamp(38px, 10vw, 58px); }
+  .mockup-cover > p { font-size: 14px; }
+  .page-meta { font-size: 9px; }
+  .sample-page h4 { font-size: clamp(23px, 6vw, 30px); }
+  .guide-page > p { font-size: 12px; }
+  .guide-steps span { font-size: 9px; }
+  .page-foot { font-size: 8px; }
+  .tracker-row { font-size: 10px; }
+  .tracker-head, .tracker-total span, .challenge-list small, .challenge-progress { font-size: 8px; }
+  .planner-grid { gap: 8px; }
+  .planner-grid > div { min-height: 48px; }
+  .planner-grid strong, .planner-grid span, .planner-grid small, .planner-note, .challenge-list li { font-size: 10px; }
+  .challenge-list li { padding: 7px 0; }
+  .product-caption { font-size: 6px; flex-direction: column; gap: 5px; }
+  .product-components { grid-template-columns: 1fr 1fr; gap: 17px 10px; }
+  .product-components > div { grid-template-columns: 22px 1fr; }
+  .product-components b { font-size: 8px; }
+  .product-components small { font-size: 9px; }
+  .product-disclosure { font-size: 7px; line-height: 1.6; }
+  .marketing-heading .section-intro, .business-heading .section-intro { margin-top: 20px; }
+  .marketing-flow { grid-template-columns: 1fr; margin-top: 43px; border-top: 0; }
+  .marketing-stage { margin: 0; padding: 0 0 20px 20px; border-left: 1px solid #C9CDD3; }
+  .marketing-stage::before { content: ''; position: absolute; left: -4px; top: 10px; width: 7px; height: 7px; background: var(--blue); border-radius: 50%; }
+  .marketing-stage:not(:last-child)::after { content: '↓'; top: auto; bottom: 6px; right: auto; left: -8px; background: var(--paper); padding: 0; font-size: 14px; }
+  .stage-marker { height: auto; display: block; }
+  .stage-marker i { display: none; }
+  .marketing-stage h3 { margin: 8px 0; font-size: 19px; }
+  .stage-objective { min-height: 0; font-size: 12px; }
+  .stage-example, .metric-list { min-height: 0; margin-top: 12px; padding: 12px; }
+  .stage-example blockquote { font-size: 13px; }
+  .journey-band { grid-template-columns: 1fr 22px 1fr; gap: 10px; margin-top: 28px; }
+  .journey-label { grid-column: 1 / -1; }
+  .journey-node { grid-row: 2; }
+  .journey-arrow { grid-row: 2; }
+  .journey-note { grid-column: 1 / -1; text-align: left; }
+  .marketing-closer p { font-size: 19px; }
+  .contribution-model { grid-template-columns: 1fr; gap: 0; margin-top: 42px; }
+  .contribution-side { padding: 18px 0; }
+  .contribution-side--nuvora { padding-left: 0; border-left: 0; }
+  .contribution-side ul { grid-template-columns: 1fr 1fr; gap: 9px 12px; }
+  .contribution-side li { font-size: 10px; }
+  .contribution-join { min-height: 42px; }
+  .contribution-join i { width: auto; height: 1px; left: 0; right: 0; top: 50%; bottom: auto; }
+  .contribution-join span { width: 34px; height: 34px; font-size: 18px; }
+  .terms-note { grid-template-columns: 1fr; gap: 9px; padding: 14px; }
+  .terms-note p { font-size: 10px; }
+  .revenue-block { margin-top: 50px; }
+  .revenue-head { align-items: start; flex-direction: column; gap: 20px; }
+  .revenue-head h3 { font-size: 32px; }
+  .unit-price { min-width: 0; }
+  .chart-axis, .chart-row { grid-template-columns: 1fr auto; gap: 8px; }
+  .chart-axis span:nth-child(2), .axis-end { display: none; }
+  .chart-axis { padding-bottom: 7px; }
+  .scenario-label { grid-column: 1; display: flex; justify-content: flex-start; gap: 10px; }
+  .chart-row { grid-template-rows: auto 12px; min-height: 62px; padding: 8px 0; }
+  .bar-track { grid-column: 1; grid-row: 2; height: 7px; }
+  .chart-row strong { grid-column: 2; grid-row: 1 / span 2; font-size: 12px; }
+  .axis-ticks { margin-left: 0; font-size: 7px; }
+  .revenue-disclaimer { font-size: 8px; }
+  .revenue-footnote { font-size: 8px; }
+  .contact-heading h2 { font-size: clamp(3.8rem, 15vw, 6.7rem); }
+  .contact-copy { margin-top: 23px; font-size: 13px; }
+  .services-row { grid-template-columns: 1fr; gap: 18px; margin-top: 42px; }
+  .services-row article { padding: 14px 0 0; border-top: 1px solid #D7DADF; }
+  .services-row article:first-child { border-top: 0; }
+  .services-row article p { margin-top: 8px; font-size: 13px; }
+  .contact-cta { align-items: flex-start; flex-direction: column; margin-top: 40px; padding: 22px 0; }
+  .contact-cta h3 { font-size: 35px; }
+  .primary-button { width: 100%; min-width: 0; }
+  .site-footer { grid-template-columns: 64px 1fr; gap: 16px; padding-top: 20px; }
+  .footer-logo { width: 72px; height: 72px; }
+  .footer-contact { gap: 7px; }
+  .footer-contact a { font-size: 8px; }
+  .copyright { grid-column: 1 / -1; text-align: left; padding-top: 10px; border-top: 1px solid #D7DADF; }
+}
+
+@media (max-width: 380px) {
+  .wrap, .hero-copy, .hero-footer { width: calc(100% - 32px); }
+  .hero h1 { font-size: 3.35rem; }
+  .hero-footer span:nth-child(2) { display: none; }
+  .creator-strip > div { padding-right: 7px; }
+  .creator-fact strong { font-size: 10px; }
+  .sample-page { padding: 7%; }
+  .mockup-cover h3 { font-size: 22px; }
+  .contact-heading h2 { font-size: 3.4rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
+}
+/* Bilingual navigation, intact logo presentation, and first-visit language choice */
+:root { --header-height: 96px; }
+html { scroll-padding-top: var(--header-height); }
+.chapter { scroll-margin-top: var(--header-height); }
+.site-header {
+  position: sticky; top: 0; z-index: 100; width: 100%; min-height: var(--header-height);
+  display: flex; align-items: center; justify-content: space-between; gap: 18px;
+  margin: 0; padding: 8px clamp(18px, 3.5vw, 48px);
+  color: var(--paper); background: rgba(17,19,21,.96);
+  border-bottom: 1px solid rgba(138,144,153,.27); backdrop-filter: blur(14px);
+}
+.header-brand { display: flex; flex: 0 0 auto; align-items: center; gap: 14px; min-width: 0; }
+.official-logo {
+  display: grid; flex: 0 0 92px; place-items: center; width: 92px; height: 92px;
+  overflow: visible; padding: 2px; background: #fff; border: 1px solid rgba(229,231,235,.78);
+}
+.official-logo img { display: block; width: 100%; height: 100%; max-width: none; object-fit: contain; object-position: center; }
+.header-meta { display: grid; gap: 5px; min-width: 0; color: var(--gray); font: 8px/1.35 var(--mono); letter-spacing: .08em; }
+.header-meta .brand-name { color: var(--paper); font: 600 11px/1 var(--sans); letter-spacing: .08em; }
+.header-nav { display: flex; flex: 0 1 auto; align-items: center; justify-content: flex-end; gap: clamp(13px, 1.8vw, 26px); margin-left: auto; font: 9px/1.2 var(--mono); letter-spacing: .02em; }
+.header-nav a { position: relative; padding: 10px 0; color: #B8BDC5; text-decoration: none; white-space: nowrap; transition: color .2s ease; }
+.header-nav a:hover, .header-nav a:focus-visible, .header-nav a[aria-current="location"] { color: var(--paper); }
+.header-nav a[aria-current="location"]::after { position: absolute; content: ''; right: 0; bottom: 3px; left: 0; height: 2px; background: var(--lime); }
+.header-nav .nav-cta { padding: 10px 0; color: var(--paper); border-bottom: 1px solid var(--lime); }
+.header-nav .nav-cta span { color: var(--lime); margin-left: 5px; }
+.header-tools { display: flex; flex: 0 0 auto; align-items: center; gap: 12px; }
+.language-toggle { display: flex; align-items: center; gap: 3px; color: #6F7680; font: 9px/1 var(--mono); }
+.language-toggle button { min-width: 34px; min-height: 40px; padding: 0 4px; color: #AEB4BC; background: transparent; border: 0; border-bottom: 2px solid transparent; cursor: pointer; font: 600 10px/1 var(--mono); }
+.language-toggle button:hover, .language-toggle button:focus-visible { color: var(--paper); }
+.language-toggle button[aria-pressed="true"] { color: var(--lime); border-bottom-color: var(--lime); }
+.menu-toggle { display: none; align-items: center; gap: 9px; min-height: 42px; padding: 0 2px 0 9px; color: var(--paper); background: transparent; border: 0; cursor: pointer; font: 9px/1 var(--mono); letter-spacing: .06em; }
+.menu-icon { display: grid; gap: 5px; width: 19px; }
+.menu-icon i { display: block; height: 1px; background: var(--lime); transition: transform .2s ease; }
+.menu-toggle[aria-expanded="true"] .menu-icon i:first-child { transform: translateY(3px) rotate(45deg); }
+.menu-toggle[aria-expanded="true"] .menu-icon i:last-child { transform: translateY(-3px) rotate(-45deg); }
+.header-nav a:focus-visible, .menu-toggle:focus-visible, .language-toggle button:focus-visible, .official-logo:focus-visible, .back-to-top:focus-visible, .language-options button:focus-visible { outline: 2px solid var(--lime); outline-offset: 4px; }
+.language-dialog { width: min(520px, calc(100vw - 32px)); max-width: none; max-height: min(90svh, 760px); margin: auto; padding: 0; overflow: auto; color: var(--paper); background: transparent; border: 0; }
+.language-dialog::backdrop { background: rgba(7,9,12,.82); backdrop-filter: blur(9px); }
+.language-card { padding: clamp(26px, 6vw, 48px); background: #111315; border: 1px solid rgba(138,144,153,.4); box-shadow: 0 24px 100px rgba(0,0,0,.45); }
+.language-kicker { display: flex; align-items: center; gap: 9px; margin: 0 0 25px; color: #B8BDC5; font: 9px/1.4 var(--mono); letter-spacing: .11em; }
+.language-kicker .lime-square { width: 8px; height: 8px; flex: 0 0 8px; }
+.language-card h2 { margin: 0; font-size: clamp(34px, 8vw, 54px); line-height: 1.03; letter-spacing: -.06em; }
+.language-card h2 em { color: var(--lime); }
+.language-intro { margin: 18px 0 25px; color: #B8BDC5; font-size: 14px; line-height: 1.7; }
+.language-options { display: grid; gap: 10px; }
+.language-options button { display: flex; align-items: center; justify-content: space-between; gap: 14px; width: 100%; min-height: 60px; padding: 0 17px; color: var(--paper); background: rgba(247,248,250,.04); border: 1px solid rgba(138,144,153,.45); cursor: pointer; text-align: left; font: 600 15px/1.3 var(--sans); transition: background .18s ease, border-color .18s ease, color .18s ease; }
+.language-options button b { color: var(--lime); font: 10px/1 var(--mono); letter-spacing: .08em; }
+.language-options button:hover { color: var(--ink); background: var(--lime); border-color: var(--lime); }
+.language-options button:hover b { color: var(--ink); }
+.language-note { margin: 21px 0 0; color: var(--gray); font: 9px/1.7 var(--mono); }
+.back-to-top { position: fixed; right: calc(20px + env(safe-area-inset-right)); bottom: calc(22px + env(safe-area-inset-bottom)); z-index: 30; display: grid; place-items: center; width: 44px; height: 44px; color: var(--ink); background: var(--lime); border: 0; cursor: pointer; font: 24px/1 var(--sans); opacity: 0; pointer-events: none; transform: translateY(8px); transition: opacity .2s ease, transform .2s ease; }
+.back-to-top.is-visible { opacity: 1; pointer-events: auto; transform: translateY(0); }
+.back-to-top:hover { background: var(--paper); }
+@media (max-width: 1120px) {
+  .header-meta { display: none; }
+  .header-nav { gap: 13px; font-size: 8px; }
+  .site-header { gap: 12px; }
+}
+@media (max-width: 880px) {
+  :root { --header-height: 100px; }
+  .site-header { min-height: var(--header-height); padding: 7px 18px; }
+  .official-logo { flex-basis: 84px; width: 84px; height: 84px; }
+  .header-nav { display: none; }
+  .header-nav.is-open { position: absolute; top: 100%; right: 0; left: 0; display: flex; flex-direction: column; align-items: stretch; gap: 0; margin: 0; padding: 8px 22px 20px; background: rgba(17,19,21,.99); border-bottom: 1px solid rgba(138,144,153,.34); box-shadow: 0 18px 32px rgba(0,0,0,.24); }
+  .header-nav.is-open a { padding: 15px 0; border-bottom: 1px solid rgba(138,144,153,.2); font-size: 11px; }
+  .header-nav.is-open a[aria-current="location"]::after { right: auto; bottom: 8px; width: 22px; }
+  .header-nav.is-open .nav-cta { border-bottom: 1px solid rgba(138,144,153,.2); }
+  .menu-toggle { display: flex; }
+  .hero { min-height: max(820px, calc(100svh - var(--header-height))); }
+  .hero-copy { margin-top: 0; padding-top: 45px; }
+}
+@media (max-width: 420px) {
+  .site-header { padding-inline: 13px; gap: 7px; }
+  .official-logo { flex-basis: 82px; width: 82px; height: 82px; }
+  .header-tools { gap: 5px; }
+  .language-toggle { gap: 0; }
+  .language-toggle button { min-width: 30px; padding-inline: 2px; font-size: 9px; }
+  .menu-toggle { gap: 7px; font-size: 8px; }
+  .back-to-top { right: calc(14px + env(safe-area-inset-right)); bottom: calc(18px + env(safe-area-inset-bottom)); width: 42px; height: 42px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; }
+}
+
+
+
+/* Nuvora editorial refresh — stronger type, intentional color fields, clear reading hierarchy */
+:root { --header-height: 82px; --serif: "Iowan Old Style", "Baskerville", "Palatino Linotype", Georgia, serif; }
+html { scroll-padding-top: var(--header-height); }
+.chapter { padding-block: clamp(96px, 10vw, 152px); }
+.chapter > .wrap { position: relative; z-index: 1; }
+.chapter[data-chapter-index] { isolation: isolate; }
+.chapter[data-chapter-index]::before {
+  content: attr(data-chapter-index); position: absolute; z-index: 0; top: .1em; right: -.04em;
+  color: currentColor; opacity: .035; font: 800 clamp(240px, 35vw, 520px)/.72 var(--sans);
+  letter-spacing: -.12em; pointer-events: none; user-select: none;
+}
+.chapter--light[data-chapter-index]::before { color: var(--blue); opacity: .045; }
+
+/* A compact wordmark takes the place of the navbar image. */
+.site-header { min-height: var(--header-height); padding-inline: clamp(22px, 5vw, 80px); }
+.header-brand { min-width: 0; }
+.wordmark { display: grid; gap: 5px; min-width: 0; color: var(--paper); text-decoration: none; }
+.wordmark-line { display: block; font: 800 clamp(18px, 1.55vw, 23px)/1 var(--sans); letter-spacing: -.075em; white-space: nowrap; }
+.wordmark-accent { color: var(--lime); }
+.wordmark-caption { color: #9298A1; font: 8px/1.3 var(--mono); letter-spacing: .095em; }
+.wordmark:focus-visible { outline: 2px solid var(--lime); outline-offset: 7px; }
+.header-nav { font-size: 10px; }
+
+/* The cover opens like an editorial title page, with a quieter but bolder metadata rail. */
+.hero { min-height: max(760px, calc(100svh - var(--header-height))); padding-top: 22px; }
+.hero-copy { margin-top: clamp(52px, 7vh, 90px); }
+.eyebrow { font-size: 11px; margin-bottom: 28px; }
+.hero h1 { max-width: 1120px; font-size: clamp(5.2rem, 11.5vw, 10.6rem); }
+.hero-subtitle { font-size: clamp(17px, 1.65vw, 21px); }
+.hero-promise { font-size: clamp(20px, 2vw, 28px); }
+.hero-footer { font-size: 9px; margin-top: 52px; }
+.hero-art { width: min(48vw, 650px); opacity: .72; }
+
+/* Larger chapter markers and more generous, scan-friendly text. */
+.section-kicker { gap: 18px; margin-bottom: clamp(44px, 5.5vw, 78px); font-size: 10px; }
+.section-kicker > span:first-child { font-weight: 700; }
+h2 { font-size: clamp(3.3rem, 6.4vw, 6.8rem); }
+.section-intro { max-width: 500px; font-size: clamp(16px, 1.4vw, 19px); line-height: 1.65; }
+.opportunity-intro { grid-template-columns: minmax(0, 1.2fr) minmax(300px, .7fr); gap: clamp(54px, 8vw, 130px); }
+.opportunity-intro h2 { font-size: clamp(3.7rem, 7vw, 7.2rem); }
+.opportunity-copy { color: #444B54; font-size: clamp(15px, 1.32vw, 18px); line-height: 1.75; }
+.creator-strip { margin-top: clamp(44px, 5vw, 68px); border-color: rgba(0,71,225,.55); background: rgba(255,255,255,.54); }
+.creator-strip > div { min-height: 134px; padding: 22px 20px; }
+.creator-mark { color: var(--paper); background: var(--blue); }
+.creator-mark span, .creator-mark small { color: rgba(247,248,250,.74); }
+.creator-mark b { color: var(--paper); font-size: clamp(25px, 2.7vw, 37px); }
+.creator-fact > span { font-size: 10px; }
+.creator-fact strong { font-size: clamp(14px, 1.3vw, 18px); }
+.creator-strip > div:nth-child(3) strong { color: var(--blue); font-size: clamp(31px, 3.5vw, 46px); line-height: .92; letter-spacing: -.08em; }
+.creator-fact strong small { display: inline-block; font-size: 9px; letter-spacing: .03em; }
+.creator-fact .status-no { font-size: clamp(12px, 1.2vw, 16px); }
+.hypothetical-note { margin-top: 16px; font-size: 10px; }
+
+.signal-field { position: relative; isolation: isolate; overflow: hidden; display: grid; grid-template-columns: minmax(230px, .72fr) minmax(0, 1.7fr); gap: clamp(30px, 5vw, 72px); align-items: center; margin-top: 36px; padding: clamp(28px, 4vw, 54px); color: var(--paper); background: var(--blue); }
+.signal-field::after { content: ''; position: absolute; z-index: -1; inset: 0; opacity: .13; background: linear-gradient(rgba(247,248,250,.32) 1px, transparent 1px), linear-gradient(90deg, rgba(247,248,250,.32) 1px, transparent 1px); background-size: 40px 40px; mask-image: linear-gradient(100deg, transparent 5%, #000 100%); }
+.signal-field-head { max-width: 410px; }
+.signal-label { color: var(--lime); font: 10px/1.4 var(--mono); letter-spacing: .1em; }
+.signal-field-head h3 { margin: 17px 0 12px; font-size: clamp(28px, 3vw, 41px); line-height: .98; letter-spacing: -.06em; }
+.signal-field-head p { margin: 0; color: rgba(247,248,250,.8); font-size: 14px; line-height: 1.5; }
+.signal-questions { list-style: none; display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 0; padding: 0; margin: 0; }
+.signal-questions li { display: grid; grid-template-columns: 32px 1fr; gap: 8px; min-width: 0; padding: 5px 15px; border-left: 1px solid rgba(247,248,250,.35); }
+.signal-questions li > span { color: var(--lime); font: 11px/1.4 var(--mono); }
+.signal-questions li div { display: grid; align-content: start; gap: 12px; }
+.signal-questions b { color: rgba(247,248,250,.7); font: 9px/1.35 var(--mono); letter-spacing: .04em; }
+.signal-questions strong { font-size: clamp(17px, 1.6vw, 21px); line-height: 1.12; letter-spacing: -.035em; }
+.signal-questions small { color: rgba(247,248,250,.76); font-size: 13px; line-height: 1.5; }
+.opportunity-flow { margin-top: clamp(46px, 6vw, 78px); }
+.flow-step { min-height: 138px; border-top-width: 2px; padding-top: 18px; }
+.flow-step > span { font-size: 14px; font-weight: 700; }
+.flow-step b { font-size: clamp(15px, 1.5vw, 20px); }
+.flow-step small { color: #606771; font-size: 12px; line-height: 1.4; }
+.flow-connector { font-size: 28px; }
+.insight-line { position: relative; grid-template-columns: minmax(170px, .3fr) 1fr; gap: 34px; margin-top: 28px; padding: 28px 30px 30px 0; border-top: 2px solid var(--blue); }
+.insight-line > span { font-size: 10px; font-weight: 700; }
+.insight-line p { max-width: 1000px; font: 500 clamp(25px, 3.4vw, 43px)/1.2 var(--serif); letter-spacing: -.035em; }
+
+/* The toolkit reads as a designed object; principles are set apart from the sample pages. */
+.product-heading h2 { font-size: clamp(3.4rem, 6.4vw, 6.4rem); }
+.product-heading .section-intro { font-size: clamp(16px, 1.4vw, 19px); }
+.product-description { max-width: 660px; font-size: clamp(15px, 1.32vw, 18px); line-height: 1.7; }
+.product-price { min-width: 230px; }
+.product-price strong { font-size: clamp(38px, 4vw, 54px); }
+.product-price span, .product-price small { font-size: 10px; }
+.product-stage { margin-top: 58px; padding: clamp(24px, 4vw, 56px); border-color: rgba(161,255,0,.42); background: linear-gradient(135deg, rgba(0,71,225,.09), rgba(247,248,250,.025) 45%); }
+.product-kit { gap: clamp(15px, 2vw, 26px); }
+.mockup-cover, .sample-page { box-shadow: 0 22px 54px rgba(0,0,0,.38); }
+.sample-page { outline: 1px solid rgba(229,231,235,.55); outline-offset: 4px; }
+.product-caption { margin-top: 26px; font-size: 10px; }
+.product-components { gap: 22px; margin-top: 38px; }
+.product-components > div { grid-template-columns: 34px 1fr; gap: 8px 7px; padding-top: 16px; border-top-color: rgba(161,255,0,.52); }
+.product-components span { font-size: 12px; }
+.product-components b { font-size: clamp(12px, 1.15vw, 15px); }
+.product-components small { font-size: clamp(12px, 1vw, 14px); line-height: 1.55; }
+.product-principles { display: grid; grid-template-columns: 1.05fr repeat(3, 1fr); gap: 20px; align-items: stretch; margin-top: 44px; padding: 24px 0; border-top: 1px solid rgba(161,255,0,.55); border-bottom: 1px solid rgba(138,144,153,.25); }
+.principles-heading { padding-right: 15px; }
+.principles-heading > span, .principle-item > span { color: var(--lime); font: 9px/1.5 var(--mono); letter-spacing: .06em; }
+.principles-heading h3 { margin: 9px 0 0; max-width: 260px; font-size: clamp(22px, 2.2vw, 30px); line-height: 1; letter-spacing: -.05em; }
+.principle-item { display: flex; flex-direction: column; justify-content: space-between; gap: 18px; padding-left: 18px; border-left: 1px solid rgba(138,144,153,.35); }
+.principle-item strong { max-width: 220px; color: var(--paper); font-size: clamp(14px, 1.28vw, 17px); line-height: 1.35; }
+.product-disclosure { margin-top: 28px; font-size: 10px; }
+
+/* The four marketing stages feel like a connected editorial sequence, not four equal boxes. */
+.marketing-heading h2 { font-size: clamp(3.7rem, 6.7vw, 7rem); }
+.marketing-heading .section-intro { font-size: clamp(16px, 1.4vw, 19px); }
+.marketing-flow { margin-top: clamp(60px, 7vw, 94px); border-top: 2px solid var(--blue); }
+.marketing-stage { margin-right: 22px; padding-right: 20px; }
+.stage-marker { height: 48px; }
+.stage-marker span { font-size: 17px; font-weight: 700; }
+.stage-marker i { width: 9px; height: 9px; }
+.marketing-stage h3 { margin: 21px 0 14px; font-size: clamp(23px, 2.5vw, 34px); }
+.stage-objective { min-height: 100px; color: #414851; font-size: clamp(14px, 1.15vw, 16px); line-height: 1.6; }
+.stage-example, .metric-list { min-height: 170px; margin-top: 20px; padding: 18px 16px; }
+.stage-example > span, .metric-list > span { font-size: 10px; }
+.stage-example blockquote { font: 500 clamp(18px, 1.75vw, 23px)/1.3 var(--serif); }
+.stage-example p, .metric-list p { font-size: 14px; line-height: 1.6; }
+.metric-list { border-left: 3px solid var(--lime); background: #E8EBF0; }
+.journey-band { margin-top: 44px; padding: 24px 20px; background: #ECEFF3; border: 0; border-left: 3px solid var(--blue); }
+.journey-label { font-size: 10px; }
+.journey-label small { font-size: 9px; }
+.journey-node b { font-size: 16px; }
+.journey-node small { font-size: 13px; }
+.journey-note { font-size: 10px; }
+.optimization-loop { display: grid; grid-template-columns: minmax(145px, .6fr) 2fr minmax(180px, .8fr); gap: 18px; align-items: center; margin-top: 28px; padding: 20px 24px; color: var(--paper); background: var(--ink); }
+.loop-label, .loop-note { color: #B8BDC5; font: 9px/1.5 var(--mono); letter-spacing: .06em; }
+.loop-sequence { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: clamp(8px, 1.7vw, 23px); }
+.loop-sequence b { color: var(--paper); font: 700 clamp(12px, 1.3vw, 16px)/1.2 var(--sans); letter-spacing: .015em; }
+.loop-sequence i { color: var(--lime); font: normal 18px/1 var(--sans); }
+.loop-note { text-align: right; letter-spacing: .015em; }
+.marketing-closer { margin-top: 42px; gap: 18px; }
+.marketing-closer .lime-square { width: 10px; height: 10px; flex-basis: 10px; margin-top: 13px; }
+.marketing-closer p { font: 500 clamp(25px, 3vw, 39px)/1.18 var(--serif); }
+.marketing-closer strong { font-family: var(--sans); font-weight: 700; }
+
+/* Partnership inputs and revenue scenarios become high-contrast, easy-to-compare moments. */
+.business-heading h2 { font-size: clamp(3.7rem, 6.8vw, 7rem); }
+.business-heading .section-intro { font-size: clamp(16px, 1.4vw, 19px); }
+.contribution-model { grid-template-columns: 1fr 86px 1fr; gap: 28px; margin-top: clamp(54px, 6.5vw, 86px); }
+.contribution-side { padding: 28px 26px 26px 0; background: linear-gradient(110deg, rgba(0,71,225,.13), transparent 75%); }
+.contribution-side--nuvora { padding-left: 30px; background: linear-gradient(110deg, rgba(161,255,0,.07), transparent 84%); }
+.contribution-heading > span { font-size: 10px; }
+.contribution-heading h3 { margin: 13px 0 22px; font-size: clamp(31px, 3.5vw, 45px); }
+.contribution-side ul { gap: 15px 22px; }
+.contribution-side li { padding-left: 17px; color: #E0E3E8; font-size: clamp(14px, 1.22vw, 17px); line-height: 1.45; }
+.contribution-side li::before { width: 6px; height: 6px; }
+.contribution-join span { width: 54px; height: 54px; font-size: 28px; }
+.terms-note { grid-template-columns: minmax(220px,.8fr) 1.8fr; gap: 14px 38px; margin-top: 30px; padding: 26px 28px; border-left-width: 3px; background: rgba(247,248,250,.055); }
+.terms-intro { display: grid; align-content: start; gap: 12px; }
+.terms-index { font-size: 9px; }
+.terms-intro h3 { max-width: 340px; margin: 0; color: var(--paper); font-size: clamp(22px, 2.5vw, 31px); line-height: 1.05; letter-spacing: -.05em; }
+.terms-checklist { list-style: none; display: grid; grid-template-columns: 1fr 1fr; gap: 13px 20px; margin: 0; padding: 0; }
+.terms-checklist li { display: grid; grid-template-columns: 30px 1fr; gap: 8px; align-items: start; color: #E0E3E8; font-size: 14px; line-height: 1.4; }
+.terms-checklist li span { color: var(--lime); font: 10px/1.5 var(--mono); }
+.terms-note > p { grid-column: 2; max-width: none; margin: 0; color: #ADB4BE; font-size: 12px; line-height: 1.5; }
+.revenue-block { margin-top: clamp(68px, 8vw, 106px); }
+.revenue-head { margin-bottom: 32px; }
+.revenue-head h3 { font-size: clamp(34px, 4vw, 52px); }
+.micro-label { font-size: 10px; }
+.unit-price { min-width: 225px; padding-left: 24px; }
+.unit-price span, .unit-price small { font-size: 10px; }
+.unit-price b { font-size: 31px; color: var(--lime); }
+.chart-axis { grid-template-columns: 200px 1fr 200px; gap: 24px; font-size: 10px; }
+.chart-row { grid-template-columns: 200px 1fr 200px; gap: 24px; min-height: 68px; }
+.scenario-label { font-size: 10px; }
+.bar-track { height: 13px; }
+.chart-row strong { font-size: clamp(17px, 1.7vw, 23px); }
+.axis-ticks { margin-left: 224px; font-size: 9px; }
+.revenue-disclaimer { margin-top: 22px; font-size: 11px; line-height: 1.7; }
+.revenue-footnote { font-size: 12px; line-height: 1.65; }
+
+/* The close becomes an invitation into a real conversation, with clear next steps. */
+.contact-heading { max-width: 1080px; }
+.contact-heading h2 { font-size: clamp(5rem, 10vw, 10rem); }
+.contact-copy { max-width: 650px; font-size: clamp(16px, 1.45vw, 19px); line-height: 1.75; }
+.conversation-starter { display: grid; grid-template-columns: minmax(250px,.8fr) 1.6fr; gap: 30px; align-items: center; margin-top: 44px; padding: 26px 30px; color: var(--paper); background: var(--ink); border-left: 4px solid var(--lime); }
+.starter-lead { display: grid; gap: 9px; }
+.starter-lead > span { color: var(--lime); font: 9px/1.45 var(--mono); letter-spacing: .09em; }
+.starter-lead strong { font-size: clamp(21px, 2.4vw, 29px); line-height: 1.05; letter-spacing: -.04em; }
+.starter-lead small { color: #B8BDC5; font-size: 13px; }
+.conversation-starter ul { list-style: none; display: grid; grid-template-columns: repeat(3,1fr); gap: 16px; padding: 0; margin: 0; }
+.conversation-starter li { display: flex; min-height: 62px; align-items: center; padding: 0 0 0 15px; border-left: 1px solid rgba(247,248,250,.35); color: #E2E5E9; font-size: 15px; line-height: 1.35; }
+.services-row { margin-top: 58px; border-top: 2px solid var(--blue); }
+.services-row article { padding: 22px 22px 0 0; }
+.services-row article > span { color: var(--blue); font-size: 10px; font-weight: 700; }
+.services-row article p { max-width: 370px; margin-top: 17px; font-size: clamp(17px, 1.55vw, 21px); line-height: 1.38; letter-spacing: -.03em; }
+.contact-cta { margin-top: clamp(64px, 8vw, 100px); padding-block: 36px; border-top-width: 2px; border-bottom-width: 2px; }
+.contact-cta h3 { font-size: clamp(38px, 5vw, 64px); }
+.primary-button { min-height: 62px; min-width: 290px; padding: 20px 23px; font-size: 11px; }
+.site-footer { grid-template-columns: 96px 1fr auto; padding-top: 30px; }
+.footer-contact a { font-size: 11px; }
+.copyright { font-size: 10px; }
+
+@media (max-width: 1050px) {
+  .chapter { padding-block: clamp(82px, 10vw, 128px); }
+  .opportunity-intro { grid-template-columns: minmax(0,1.08fr) minmax(260px,.8fr); gap: 42px; }
+  .signal-field { grid-template-columns: 1fr; gap: 26px; }
+  .signal-field-head { max-width: 610px; }
+  .contribution-model { grid-template-columns: 1fr 62px 1fr; gap: 17px; }
+  .terms-note { grid-template-columns: minmax(180px,.7fr) 1.4fr; gap: 15px 25px; }
+  .chart-axis, .chart-row { grid-template-columns: 160px 1fr 175px; gap: 15px; }
+  .axis-ticks { margin-left: 175px; }
+  .conversation-starter { grid-template-columns: 1fr; gap: 22px; }
+}
+@media (max-width: 880px) {
+  :root { --header-height: 76px; }
+  .site-header { min-height: var(--header-height); padding: 7px 22px; }
+  .wordmark-line { font-size: 19px; }
+  .wordmark-caption { font-size: 7px; }
+  .header-tools { gap: 8px; }
+  .header-nav.is-open { top: 100%; }
+  .hero { min-height: max(760px, calc(100svh - var(--header-height))); }
+  .hero h1 { font-size: clamp(4.5rem, 13vw, 8rem); }
+  .creator-strip { grid-template-columns: 1fr 1fr 1fr; }
+  .creator-strip > div { min-height: 126px; }
+  .signal-questions { grid-template-columns: 1fr; gap: 0; }
+  .signal-questions li { padding: 16px 4px; border-left: 0; border-top: 1px solid rgba(247,248,250,.3); }
+  .signal-questions li div { grid-template-columns: minmax(145px,.7fr) 1fr; align-items: baseline; gap: 5px 15px; }
+  .signal-questions b { grid-column: 1; }
+  .signal-questions strong { grid-column: 1; }
+  .signal-questions small { grid-column: 2; grid-row: 1 / span 2; }
+  .product-principles { grid-template-columns: 1fr 1fr; gap: 18px; }
+  .principle-item:nth-child(2) { border-left: 0; padding-left: 0; }
+  .principles-heading h3 { max-width: none; }
+  .marketing-flow { grid-template-columns: repeat(2,1fr); row-gap: 34px; }
+  .marketing-stage { min-height: 320px; }
+  .optimization-loop { grid-template-columns: 1fr; gap: 14px; }
+  .loop-sequence { justify-content: flex-start; }
+  .loop-note { text-align: left; }
+  .contribution-model { grid-template-columns: 1fr; gap: 0; }
+  .contribution-side, .contribution-side--nuvora { padding: 24px 20px; border-left: 0; }
+  .contribution-join { min-height: 52px; }
+  .contribution-join i { position: absolute; width: auto; height: 1px; left: 0; right: 0; top: 50%; bottom: auto; }
+  .terms-note { grid-template-columns: 1fr; }
+  .terms-note > p { grid-column: 1; }
+  .terms-checklist { grid-template-columns: 1fr 1fr; }
+  .contact-heading h2 { font-size: clamp(5rem, 13vw, 8rem); }
+}
+@media (max-width: 720px) {
+  .wrap, .hero-copy, .hero-footer { width: min(calc(100% - 40px), var(--wrap)); }
+  .chapter { padding-block: 76px; }
+  .chapter[data-chapter-index]::before { top: .04em; right: -.06em; font-size: clamp(190px, 55vw, 320px); }
+  .hero { min-height: max(750px, calc(100svh - var(--header-height))); padding: 16px 0 20px; }
+  .hero-copy { width: min(calc(100% - 40px), var(--wrap)); margin-top: 0; padding-top: 50px; }
+  .hero h1 { max-width: 690px; font-size: clamp(3.75rem, 14.5vw, 6.8rem); letter-spacing: -.095em; }
+  .hero-art { width: 77vw; top: auto; right: -10vw; bottom: 180px; opacity: .38; }
+  .hero-bottom { display: block; margin-top: 36px; }
+  .hero-subtitle { max-width: 330px; font-size: 16px; line-height: 1.5; }
+  .hero-promise { font-size: 20px; }
+  .hero-footer { flex-wrap: wrap; justify-content: flex-start; gap: 9px 16px; margin-top: 36px; font-size: 8px; }
+  .section-kicker { gap: 10px; margin-bottom: 38px; font-size: 8px; }
+  .section-kicker > span:last-child { display: inline; max-width: 38%; text-align: right; line-height: 1.4; }
+  .opportunity-intro { grid-template-columns: 1fr; gap: 25px; }
+  .opportunity-intro h2, .product-heading h2, .marketing-heading h2, .business-heading h2 { font-size: clamp(3rem, 11.7vw, 5rem); }
+  .opportunity-copy { max-width: 100%; font-size: 15px; }
+  .creator-strip { grid-template-columns: 1fr 1fr; margin-top: 38px; }
+  .creator-strip > div { min-height: 110px; padding: 15px 12px; }
+  .creator-mark b { font-size: 24px; }
+  .creator-strip > div:nth-child(3) strong { font-size: 38px; }
+  .creator-fact strong { font-size: 13px; }
+  .creator-strip > div:nth-child(4) { border-top: 1px solid #D7DADF; padding-left: 12px; }
+  .creator-strip > div:nth-child(5) { grid-column: 1/-1; border-top: 1px solid #D7DADF; }
+  .hypothetical-note { font-size: 9px; align-items: flex-start; }
+  .signal-field { gap: 22px; margin-top: 28px; padding: 25px 20px; }
+  .signal-field-head h3 { font-size: 32px; }
+  .signal-field-head p { font-size: 14px; }
+  .signal-questions li { grid-template-columns: 28px 1fr; }
+  .signal-questions li div { grid-template-columns: 1fr; gap: 6px; }
+  .signal-questions b, .signal-questions strong, .signal-questions small { grid-column: 1; grid-row: auto; }
+  .signal-questions b { font-size: 9px; }
+  .signal-questions strong { font-size: 18px; }
+  .signal-questions small { font-size: 14px; }
+  .opportunity-flow { grid-template-columns: 1fr; gap: 0; margin-top: 42px; }
+  .flow-step { min-height: 82px; grid-template-columns: 40px 1fr; border-top-width: 1px; padding: 14px 0; }
+  .flow-step > span { font-size: 13px; }
+  .flow-step b { font-size: 16px; }
+  .flow-step small { grid-column: 2; font-size: 12px; }
+  .flow-connector { height: 18px; padding: 0; font-size: 16px; line-height: 14px; transform: rotate(90deg); }
+  .insight-line { grid-template-columns: 1fr; gap: 10px; margin-top: 24px; padding: 20px 0; }
+  .insight-line p { font-size: clamp(25px, 7.5vw, 34px); }
+  .product-heading, .marketing-heading, .business-heading { display: block; }
+  .product-heading .section-intro { margin-top: 18px; }
+  .product-description { font-size: 15px; }
+  .product-price { margin-top: 25px; min-width: 0; width: fit-content; }
+  .product-stage { padding: 16px; margin-top: 36px; }
+  .product-kit { grid-template-columns: 1fr; gap: 20px; }
+  .product-kit > *, .planner-page, .challenge-page { grid-column: 1; }
+  .mockup-cover, .sample-page { aspect-ratio: .88/1; }
+  .mockup-cover { padding: 8%; }
+  .cover-topline, .cover-bottom { font-size: 9px; }
+  .cover-number { font-size: clamp(52px, 14vw, 76px); }
+  .mockup-cover h3 { font-size: clamp(38px, 10vw, 58px); }
+  .mockup-cover > p { font-size: 14px; }
+  .page-meta { font-size: 9px; }
+  .sample-page h4 { font-size: clamp(23px, 6vw, 30px); }
+  .guide-page > p { font-size: 13px; }
+  .guide-steps span { font-size: 9px; }
+  .page-foot { font-size: 8px; }
+  .tracker-row { font-size: 10px; }
+  .tracker-head, .tracker-total span, .challenge-list small, .challenge-progress { font-size: 8px; }
+  .planner-grid strong, .planner-grid span, .planner-grid small, .planner-note, .challenge-list li { font-size: 11px; }
+  .product-caption { flex-direction: column; gap: 6px; font-size: 9px; }
+  .product-components { grid-template-columns: 1fr 1fr; gap: 18px 12px; }
+  .product-components > div { grid-template-columns: 25px 1fr; }
+  .product-components b { font-size: 10px; }
+  .product-components small { font-size: 11px; }
+  .product-principles { grid-template-columns: 1fr; gap: 16px; margin-top: 32px; }
+  .principles-heading h3 { max-width: 280px; font-size: 27px; }
+  .principle-item, .principle-item:nth-child(2) { min-height: 70px; gap: 7px; padding: 8px 0 4px; border-left: 0; border-top: 1px solid rgba(138,144,153,.35); }
+  .principle-item > span { font-size: 9px; }
+  .principle-item strong { font-size: 15px; }
+  .product-disclosure { font-size: 8px; line-height: 1.6; }
+  .marketing-heading .section-intro, .business-heading .section-intro { margin-top: 20px; }
+  .marketing-flow { grid-template-columns: 1fr; row-gap: 30px; margin-top: 42px; border-top: 0; }
+  .marketing-stage { min-height: 0; margin: 0; padding: 0 0 20px 22px; border-left: 1px solid #C9CDD3; }
+  .marketing-stage::before { content: ''; position: absolute; left: -4px; top: 14px; width: 7px; height: 7px; background: var(--blue); border-radius: 50%; }
+  .marketing-stage:not(:last-child)::after { content: '↓'; top: auto; bottom: 2px; right: auto; left: -8px; background: var(--paper); padding: 0; font-size: 14px; }
+  .stage-marker { height: auto; display: block; }
+  .stage-marker i { display: none; }
+  .stage-marker span { font-size: 14px; }
+  .marketing-stage h3 { margin: 8px 0; font-size: 23px; }
+  .stage-objective { min-height: 0; font-size: 15px; }
+  .stage-example, .metric-list { min-height: 0; margin-top: 13px; padding: 14px; }
+  .stage-example blockquote { font-size: 19px; }
+  .stage-example p, .metric-list p { font-size: 14px; }
+  .journey-band { grid-template-columns: 1fr 20px 1fr; gap: 10px; margin-top: 28px; padding: 19px 15px; }
+  .journey-label { grid-column: 1/-1; }
+  .journey-node { grid-row: 2; grid-template-columns: 24px 1fr; gap: 4px 5px; }
+  .journey-node b { font-size: 14px; }
+  .journey-node small { font-size: 12px; }
+  .journey-arrow { grid-row: 2; }
+  .journey-note { grid-column: 1/-1; text-align: left; font-size: 9px; }
+  .optimization-loop { gap: 13px; padding: 18px; }
+  .loop-sequence { gap: 8px; }
+  .loop-sequence b { font-size: 11px; }
+  .loop-sequence i { font-size: 14px; }
+  .loop-note { font-size: 9px; }
+  .marketing-closer { margin-top: 30px; }
+  .marketing-closer p { font-size: 25px; }
+  .contribution-model { grid-template-columns: 1fr; gap: 0; margin-top: 40px; }
+  .contribution-side, .contribution-side--nuvora { padding: 21px 15px; }
+  .contribution-heading h3 { font-size: 33px; margin-bottom: 16px; }
+  .contribution-side ul { grid-template-columns: 1fr 1fr; gap: 11px 14px; }
+  .contribution-side li { font-size: 13px; }
+  .contribution-join { min-height: 46px; }
+  .contribution-join i { width: auto; height: 1px; left: 0; right: 0; top: 50%; bottom: auto; }
+  .contribution-join span { width: 38px; height: 38px; font-size: 21px; }
+  .terms-note { grid-template-columns: 1fr; gap: 15px; padding: 20px; }
+  .terms-intro h3 { font-size: 25px; }
+  .terms-checklist { grid-template-columns: 1fr 1fr; gap: 12px; }
+  .terms-checklist li { grid-template-columns: 25px 1fr; gap: 5px; font-size: 13px; }
+  .terms-note > p { grid-column: 1; font-size: 12px; }
+  .revenue-block { margin-top: 54px; }
+  .revenue-head { align-items: start; flex-direction: column; gap: 20px; }
+  .revenue-head h3 { font-size: 34px; }
+  .unit-price { min-width: 0; }
+  .chart-axis, .chart-row { grid-template-columns: 1fr auto; gap: 8px; }
+  .chart-axis span:nth-child(2), .axis-end { display: none; }
+  .chart-axis { padding-bottom: 7px; }
+  .scenario-label { grid-column: 1; display: flex; justify-content: flex-start; gap: 10px; font-size: 9px; }
+  .chart-row { grid-template-rows: auto 11px; min-height: 64px; padding: 8px 0; }
+  .bar-track { grid-column: 1; grid-row: 2; height: 7px; }
+  .chart-row strong { grid-column: 2; grid-row: 1 / span 2; font-size: 15px; }
+  .axis-ticks { margin-left: 0; font-size: 8px; }
+  .revenue-disclaimer, .revenue-footnote { font-size: 9px; }
+  .contact-heading h2 { font-size: clamp(4.2rem, 15vw, 7rem); }
+  .contact-copy { margin-top: 24px; font-size: 15px; }
+  .conversation-starter { grid-template-columns: 1fr; gap: 16px; margin-top: 32px; padding: 20px; }
+  .starter-lead strong { font-size: 26px; }
+  .conversation-starter ul { grid-template-columns: 1fr; gap: 0; }
+  .conversation-starter li { min-height: 48px; padding: 9px 0 9px 13px; border-left: 0; border-top: 1px solid rgba(247,248,250,.25); font-size: 14px; }
+  .services-row { grid-template-columns: 1fr; gap: 0; margin-top: 42px; }
+  .services-row article { padding: 17px 0; border-bottom: 1px solid #D7DADF; }
+  .services-row article:first-child { border-top: 0; }
+  .services-row article > span { font-size: 9px; }
+  .services-row article p { margin-top: 9px; font-size: 17px; }
+  .contact-cta { align-items: flex-start; flex-direction: column; margin-top: 46px; padding: 23px 0; }
+  .contact-cta h3 { font-size: 38px; }
+  .primary-button { width: 100%; min-width: 0; }
+  .site-footer { grid-template-columns: 72px 1fr; gap: 15px; padding-top: 22px; }
+  .footer-logo { width: 72px; height: 72px; }
+  .footer-contact { gap: 8px; }
+  .footer-contact a { font-size: 9px; }
+  .copyright { grid-column: 1/-1; text-align: left; padding-top: 12px; border-top: 1px solid #D7DADF; }
+}
+@media (max-width: 420px) {
+  .site-header { padding-inline: 16px; }
+  .wordmark-caption { display: none; }
+  .wordmark-line { font-size: 17px; }
+  .header-tools { gap: 5px; }
+  .language-toggle button { min-width: 29px; }
+  .menu-toggle { gap: 6px; font-size: 8px; }
+  .wrap, .hero-copy, .hero-footer { width: calc(100% - 32px); }
+  .hero h1 { font-size: clamp(3.5rem, 14.1vw, 4.2rem); }
+  .creator-strip > div { padding-right: 8px; }
+  .creator-fact strong { font-size: 12px; }
+  .creator-strip > div:nth-child(3) strong { font-size: 34px; }
+  .signal-field { padding-inline: 16px; }
+  .terms-checklist { grid-template-columns: 1fr; }
+  .sample-page { padding: 7%; }
+  .contact-heading h2 { font-size: 3.85rem; }
+}
+
+
+/* Editorial breathing room: clearer line spacing for every focal point. */
+.hero h1 {
+  line-height: 1.02;
+  letter-spacing: -.065em;
+  text-wrap: balance;
+}
+.hero-bottom { margin-top: clamp(42px, 6vh, 68px); }
+.hero-subtitle { line-height: 1.55; margin-bottom: 20px; }
+.hero-promise { line-height: 1.55; }
+.chapter h2 {
+  line-height: 1.07;
+  letter-spacing: -.065em;
+  text-wrap: balance;
+}
+.section-kicker { margin-bottom: clamp(48px, 6vw, 82px); }
+.product-heading .section-intro,
+.marketing-heading .section-intro,
+.business-heading .section-intro { margin-top: 22px; line-height: 1.7; }
+.signal-field-head h3,
+.principles-heading h3,
+.marketing-stage h3,
+.contribution-heading h3,
+.terms-intro h3,
+.revenue-head h3,
+.contact-cta h3 { line-height: 1.12; }
+.contact-heading h2 { line-height: 1.02; letter-spacing: -.065em; }
+
+@media (min-width: 721px) {
+  .hero h1 {
+    max-width: 1320px;
+    font-size: clamp(4.75rem, 9.3vw, 9.2rem);
+  }
+}
+@media (max-width: 720px) {
+  .hero-copy { padding-top: clamp(50px, 8vh, 74px); }
+  .hero h1 { line-height: 1.05; letter-spacing: -.06em; }
+  .hero-bottom { margin-top: 44px; }
+  .hero-subtitle { max-width: 34ch; margin-bottom: 22px; line-height: 1.58; }
+  .hero-promise { line-height: 1.55; }
+  .chapter h2 { line-height: 1.08; letter-spacing: -.055em; }
+  .section-kicker { margin-bottom: 46px; }
+  .contact-heading h2 { line-height: 1.04; letter-spacing: -.06em; }
+}
+@media (max-width: 420px) {
+  .hero h1 { line-height: 1.08; letter-spacing: -.05em; }
+  .hero-subtitle { max-width: 31ch; }
+  .chapter h2 { line-height: 1.09; }
+}
+
+</style>
+</head>
+<body>
+
+<dialog class="language-dialog" id="language-dialog" aria-labelledby="language-title">
+  <div class="language-card">
+    <p class="language-kicker"><span class="lime-square" aria-hidden="true"></span> NUVORA.OFFSTAGE <span>·</span> LANGUAGE / BAHASA</p>
+    <h2 id="language-title">Choose your language<br><em>Pilih bahasa</em></h2>
+    <p class="language-intro">Select the language you would like to browse in.<br>Pilih bahasa yang ingin kamu gunakan.</p>
+    <div class="language-options">
+      <button id="choose-id" type="button" data-choose-language="id"><span>Bahasa Indonesia</span><b>ID <span aria-hidden="true">↗</span></b></button>
+      <button type="button" data-choose-language="en"><span>English</span><b>EN <span aria-hidden="true">↗</span></b></button>
+    </div>
+    <p class="language-note">You can change your language at any time from the navigation.<br>Bahasa dapat diubah kapan saja melalui navigasi.</p>
+  </div>
+</dialog>
+
+  <a class="skip-link" href="#main">Skip to portfolio</a>
+
+  <main id="main">
+<header class="site-header" id="site-header">
+  <div class="header-brand">
+    <a class="wordmark" href="#cover" aria-label="Nuvora.offstage — back to cover">
+      <span class="wordmark-line">Nuvora<span class="wordmark-accent">.offstage</span></span>
+      <span class="wordmark-caption">DIGITAL PRODUCT &amp; MONETIZATION PARTNER</span>
+    </a>
+  </div>
+  <nav class="header-nav" id="primary-navigation" aria-label="Main navigation">
+    <a href="#opportunity">The opportunity</a>
+    <a href="#product">The product</a>
+    <a href="#marketing">The strategy</a>
+    <a href="#business-model">The model</a>
+    <a class="nav-cta" href="#contact">Start a conversation <span aria-hidden="true">↗</span></a>
+  </nav>
+  <div class="header-tools">
+    <div class="language-toggle" role="group" aria-label="Choose language">
+      <button type="button" data-language="id" aria-label="Switch language to Bahasa Indonesia">ID</button>
+      <span aria-hidden="true">/</span>
+      <button type="button" data-language="en" aria-label="Switch language to English">EN</button>
+    </div>
+    <button class="menu-toggle" id="menu-toggle" type="button" aria-expanded="false" aria-controls="primary-navigation" aria-label="Open navigation menu">
+      <span class="menu-icon" aria-hidden="true"><i></i><i></i></span>
+      <span class="menu-label">Menu</span>
+    </button>
+  </div>
+</header>
+    <!-- 01 / COVER -->
+    <section class="chapter chapter--dark hero" id="cover" aria-labelledby="cover-title" data-chapter-index="00">
+      <div class="hero-grid" aria-hidden="true"></div>
+
+      <div class="hero-art" aria-hidden="true">
+        <svg viewBox="0 0 560 510" role="presentation">
+          <defs>
+            <linearGradient id="assetFill" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0" stop-color="#0047E1" stop-opacity=".72" />
+              <stop offset="1" stop-color="#0047E1" stop-opacity=".08" />
+            </linearGradient>
+            <radialGradient id="blueHalo">
+              <stop offset="0" stop-color="#0047E1" stop-opacity=".28" />
+              <stop offset="1" stop-color="#0047E1" stop-opacity="0" />
+            </radialGradient>
+          </defs>
+          <circle cx="318" cy="250" r="250" fill="url(#blueHalo)" />
+          <g fill="none" stroke="#8A9099" stroke-opacity=".28" stroke-width="1">
+            <path d="M28 70H520M28 150H520M28 230H520M28 310H520M28 390H520M28 470H520" />
+            <path d="M80 32V485M160 32V485M240 32V485M320 32V485M400 32V485M480 32V485" />
+          </g>
+          <g fill="#0047E1">
+            <circle cx="74" cy="155" r="7"/><circle cx="102" cy="187" r="5"/><circle cx="122" cy="138" r="4"/>
+            <circle cx="92" cy="231" r="6"/><circle cx="138" cy="205" r="7"/><circle cx="153" cy="158" r="4"/>
+            <circle cx="174" cy="232" r="5"/><circle cx="188" cy="183" r="6"/><circle cx="58" cy="206" r="4"/>
+            <circle cx="126" cy="268" r="5"/><circle cx="202" cy="274" r="4"/><circle cx="52" cy="276" r="3"/>
+            <circle cx="156" cy="112" r="3"/><circle cx="92" cy="106" r="4"/>
+          </g>
+          <g fill="none" stroke="#0047E1" stroke-opacity=".65" stroke-width="1.5">
+            <path d="M74 155L138 205L188 183L286 250"/><path d="M92 231L174 232L286 250"/>
+            <path d="M122 138L188 183L286 250"/><path d="M126 268L202 274L286 250"/>
+            <path d="M58 206L138 205M153 158L188 183"/>
+          </g>
+          <path d="M286 159H480V352H286Z" fill="url(#assetFill)" stroke="#0047E1" stroke-width="2" />
+          <path d="M314 191H448M314 219H426M314 247H447M314 275H407" stroke="#F7F8FA" stroke-opacity=".58" stroke-width="2" />
+          <path d="M314 310H362" stroke="#A1FF00" stroke-width="5" />
+          <path d="M480 159L520 126V319L480 352" fill="#0047E1" fill-opacity=".18" stroke="#0047E1" stroke-opacity=".65" stroke-width="1.5" />
+          <path d="M286 159L326 126H520L480 159" fill="#0047E1" fill-opacity=".28" stroke="#0047E1" stroke-opacity=".65" stroke-width="1.5" />
+          <circle cx="286" cy="250" r="5" fill="#A1FF00" />
+          <text x="68" y="340" fill="#8A9099" font-size="11" letter-spacing="2">AUDIENCE SIGNAL</text>
+          <text x="314" y="385" fill="#8A9099" font-size="11" letter-spacing="2">OWNED DIGITAL ASSET</text>
+        </svg>
+        <span class="art-index">FIG. 01 — POTENTIAL, MADE TANGIBLE</span>
+      </div>
+
+      <div class="hero-copy wrap">
+        <p class="eyebrow"><span class="eyebrow-mark"></span> A BEHIND-THE-SCENES PARTNER FOR CREATORS</p>
+        <h1 id="cover-title">FROM <span class="word-audience">AUDIENCE</span><br>TO <span class="word-asset">ASSET.</span></h1>
+        <div class="hero-bottom">
+          <div>
+            <p class="hero-subtitle">Turning creator expertise into digital products.</p>
+            <p class="hero-promise"><span>You build the audience.</span><br><strong>We build what they buy.</strong></p>
+          </div>
+          <a class="scroll-cue" href="#opportunity"><span>01 / THE OPPORTUNITY</span><b aria-hidden="true">↓</b></a>
+        </div>
+      </div>
+      <div class="hero-footer wrap">
+        <span>NUVORA.OFFSTAGE</span><span>DIGITAL PRODUCT &amp; MONETIZATION PARTNER</span><span>SIMULATED CASE STUDY / 2026</span>
+      </div>
+    </section>
+
+    <!-- 02 / THE OPPORTUNITY -->
+    <section class="chapter chapter--light opportunity" id="opportunity" aria-labelledby="opportunity-title" data-chapter-index="01">
+      <div class="wrap">
+        <div class="section-kicker"><span>01 / THE OPPORTUNITY</span><span class="kicker-rule"></span><span>FROM ATTENTION TO POSSIBILITY</span></div>
+        <div class="opportunity-intro">
+          <h2 id="opportunity-title">An audience is an asset.<br><em>But attention alone</em><br>isn't a business.</h2>
+          <div class="opportunity-copy">
+            <p>Many creators build trust and attention long before they develop a product of their own.</p>
+            <p>They may rely on affiliate links, occasional brand deals, or other monetization methods without having a digital product that belongs to their own brand.</p>
+            <p>Nuvora explores how that existing expertise and audience could be translated into a structured product opportunity.</p>
+          </div>
+        </div>
+
+        <div class="creator-strip">
+          <div class="creator-mark"><span>PROFILE / 01</span><b>CREATOR A</b><small>HYPOTHETICAL PROFILE</small></div>
+          <div class="creator-fact"><span>NICHE</span><strong>PERSONAL<br>FINANCE</strong></div>
+          <div class="creator-fact"><span>AUDIENCE</span><strong>24K <small>FOLLOWERS</small></strong></div>
+          <div class="creator-fact creator-fact--wide"><span>CURRENT MODEL</span><strong>AFFILIATE LINKS +<br>OCCASIONAL BRAND DEALS</strong></div>
+          <div class="creator-fact creator-fact--wide"><span>OWN DIGITAL PRODUCT</span><strong class="status-no">NOT YET DEVELOPED</strong></div>
+        </div>
+        <p class="hypothetical-note"><span class="lime-square"></span> Illustrative profile only. Product demand and audience needs have not been validated.</p>
+
+        <aside class="signal-field" aria-label="Questions to explore before developing a product">
+          <div class="signal-field-head">
+            <span class="signal-label">QUESTIONS TO EXPLORE</span>
+            <h3>Start with what people already ask.</h3>
+            <p>These are research prompts—not proof of demand.</p>
+          </div>
+          <ol class="signal-questions">
+            <li><span>01</span><div><b>REPEATED QUESTIONS</b><strong>What keeps coming up?</strong><small>Look for questions people return to.</small></div></li>
+            <li><span>02</span><div><b>STICKING POINTS</b><strong>Where do they get stuck?</strong><small>Notice practical tasks that feel difficult.</small></div></li>
+            <li><span>03</span><div><b>USEFUL NEXT STEPS</b><strong>What could help them move forward?</strong><small>Start with usefulness—not a sales assumption.</small></div></li>
+          </ol>
+        </aside>
+
+        <div class="opportunity-flow" aria-label="Potential product opportunity flow">
+          <div class="flow-step"><span>01</span><b>EXISTING<br>AUDIENCE</b><small>Trust already exists</small></div>
+          <div class="flow-connector" aria-hidden="true">→</div>
+          <div class="flow-step"><span>02</span><b>POTENTIAL<br>NEED</b><small>Explore what matters</small></div>
+          <div class="flow-connector" aria-hidden="true">→</div>
+          <div class="flow-step"><span>03</span><b>PRODUCT<br>OPPORTUNITY</b><small>Shape a useful concept</small></div>
+          <div class="flow-connector" aria-hidden="true">→</div>
+          <div class="flow-step flow-step--asset"><span>04</span><b>OWNED DIGITAL<br>ASSET</b><small>Build for the creator brand</small></div>
+        </div>
+        <div class="insight-line"><span>THE STRATEGIC INSIGHT</span><p>“The opportunity isn't simply to sell something.<br>It's to build something useful that the audience can own.”</p></div>
+      </div>
+    </section>
+
+    <!-- 03 / PRODUCT DEVELOPMENT -->
+    <section class="chapter chapter--dark product" id="product" aria-labelledby="product-title" data-chapter-index="02">
+      <div class="wrap">
+        <div class="section-kicker section-kicker--dark"><span>02 / PRODUCT DEVELOPMENT</span><span class="kicker-rule"></span><span>ILLUSTRATIVE CONCEPT</span></div>
+        <div class="product-heading">
+          <div>
+            <h2 id="product-title">Turn expertise into<br><em>something people can use.</em></h2>
+            <p class="section-intro">A product concept becomes more valuable when it is structured around a clear problem and a practical outcome.</p>
+            <p class="product-description">A beginner-friendly budgeting toolkit designed to help people understand their spending, organize their money, and establish a more consistent budgeting routine.</p>
+          </div>
+          <div class="product-price"><span>ILLUSTRATIVE PRICE</span><strong>Rp49.000</strong><small>PERSONAL FINANCE / DIGITAL DOWNLOAD</small></div>
+        </div>
+
+        <div class="product-stage">
+          <div class="product-kit" aria-label="Sample pages from the 30-Day Money Reset digital product">
+            <article class="mockup-cover">
+              <div class="cover-topline"><span>PERSONAL FINANCE / TOOLKIT 01</span><span>NUVORA CONCEPT</span></div>
+              <div class="cover-number">30<span>DAYS</span></div>
+              <h3>Money<br><em>Reset</em></h3>
+              <p>A practical start to a calmer month.</p>
+              <div class="cover-bottom"><span>PLAN · TRACK · RESET</span><span>2026 / DIGITAL EDITION</span></div>
+              <div class="cover-orbit" aria-hidden="true"><i></i><b></b><span></span></div>
+            </article>
+
+            <article class="sample-page guide-page">
+              <div class="page-meta"><span>01 / THE GUIDE</span><span>02</span></div>
+              <h4>Give every<br>peso a place.</h4>
+              <p>Start with one clear view of what comes in and what goes out. A simple plan is easier to keep than a perfect one.</p>
+              <div class="guide-steps"><span><b>01</b> RECORD</span><span><b>02</b> SORT</span><span><b>03</b> PLAN</span></div>
+              <div class="page-foot">A BUDGET IS A TOOL, NOT A TEST.</div>
+            </article>
+
+            <article class="sample-page tracker-page">
+              <div class="page-meta"><span>02 / EXPENSE TRACKER</span><span>08</span></div>
+              <h4>Track the small<br>things first.</h4>
+              <div class="tracker-table">
+                <div class="tracker-row tracker-head"><span>CATEGORY</span><span>EXAMPLE</span><span>AMOUNT</span></div>
+                <div class="tracker-row"><span>Food</span><span>Lunch</span><b>Rp35.000</b></div>
+                <div class="tracker-row"><span>Transport</span><span>Bus fare</span><b>Rp12.000</b></div>
+                <div class="tracker-row"><span>Bills</span><span>Internet</span><b>Rp80.000</b></div>
+                <div class="tracker-row"><span>Savings</span><span>Goal fund</span><b>Rp50.000</b></div>
+                <div class="tracker-row"><span>Other</span><span>Notebook</span><b>Rp18.000</b></div>
+              </div>
+              <div class="tracker-total"><span>SAMPLE DAY TOTAL</span><b>Rp195.000</b></div>
+            </article>
+
+            <article class="sample-page planner-page">
+              <div class="page-meta"><span>03 / MONTHLY PLANNER</span><span>12</span></div>
+              <h4>A month with<br>a clear direction.</h4>
+              <div class="planner-grid">
+                <div><span>INCOME</span><strong>Rp __________</strong><small>Pay · side income</small></div>
+                <div><span>EXPENSES</span><strong>Rp __________</strong><small>Needs · wants · bills</small></div>
+                <div class="planner-savings"><span>SAVINGS GOAL</span><strong>Rp __________</strong><small>Choose one priority</small></div>
+              </div>
+              <div class="planner-note"><i></i><span>One small adjustment<br>can make the plan yours.</span></div>
+            </article>
+
+            <article class="sample-page challenge-page">
+              <div class="page-meta"><span>04 / THE 30-DAY CHALLENGE</span><span>30</span></div>
+              <h4>One useful step,<br>each day.</h4>
+              <ol class="challenge-list">
+                <li><span class="check-box">✓</span><span>Write down every expense today.</span><small>DAY 01</small></li>
+                <li><span class="check-box">✓</span><span>Group spending into 3 categories.</span><small>DAY 02</small></li>
+                <li><span class="check-box"></span><span>Choose one savings priority.</span><small>DAY 03</small></li>
+                <li><span class="check-box"></span><span>Review one recurring bill.</span><small>DAY 04</small></li>
+                <li><span class="check-box"></span><span>Set a weekly spending check-in.</span><small>DAY 05</small></li>
+              </ol>
+              <div class="challenge-progress"><span>YOUR FIRST FIVE DAYS</span><b>02 / 05</b></div>
+            </article>
+          </div>
+          <div class="product-caption"><span>30-DAY MONEY RESET</span><span>A BEGINNER-FRIENDLY BUDGETING TOOLKIT / SAMPLE PAGES</span></div>
+        </div>
+
+        <div class="product-components">
+          <div><span>01</span><b>BUDGETING GUIDE</b><small>Core principles, made practical.</small></div>
+          <div><span>02</span><b>EXPENSE TRACKER</b><small>A simple record of daily spending.</small></div>
+          <div><span>03</span><b>MONTHLY BUDGET PLANNER</b><small>Income, expenses, savings goals.</small></div>
+          <div><span>04</span><b>30-DAY CHALLENGE</b><small>Small, guided budgeting activities.</small></div>
+        </div>
+        <aside class="product-principles" aria-label="Design principles behind the product concept">
+          <div class="principles-heading"><span>THREE DESIGN PRINCIPLES</span><h3>Useful beats complicated.</h3></div>
+          <div class="principle-item"><span>01 / ONE CLEAR OUTCOME</span><strong>Make the first action obvious.</strong></div>
+          <div class="principle-item"><span>02 / BUILT FOR REAL LIFE</span><strong>Use simple tools, not extra theory.</strong></div>
+          <div class="principle-item"><span>03 / MOMENTUM OVER PERFECTION</span><strong>Small steps invite a return.</strong></div>
+        </aside>
+        <p class="product-disclosure">ILLUSTRATIVE PRODUCT CONCEPT — NOT A PUBLISHED CLIENT PRODUCT</p>
+      </div>
+    </section>
+
+    <!-- 04 / MARKETING STRATEGY -->
+    <section class="chapter chapter--light marketing" id="marketing" aria-labelledby="marketing-title" data-chapter-index="03">
+      <div class="wrap">
+        <div class="section-kicker"><span>03 / MARKETING STRATEGY</span><span class="kicker-rule"></span><span>ATTENTION, WITH A NEXT STEP</span></div>
+        <div class="marketing-heading">
+          <h2 id="marketing-title">A good product needs<br><em>a system around it.</em></h2>
+          <p class="section-intro">Product development is only one part of the process. The next step is creating a clear path between audience attention and a relevant product offer.</p>
+        </div>
+
+        <div class="marketing-flow" aria-label="Four-stage marketing system">
+          <article class="marketing-stage">
+            <div class="stage-marker"><span>01</span><i></i></div>
+            <h3>ATTRACT</h3>
+            <p class="stage-objective">Capture attention through relevant, relatable content.</p>
+            <div class="stage-example"><span>EXAMPLE HOOK</span><blockquote>“Your salary isn't necessarily the problem. You just don't know where your money goes.”</blockquote></div>
+          </article>
+          <article class="marketing-stage">
+            <div class="stage-marker"><span>02</span><i></i></div>
+            <h3>EDUCATE</h3>
+            <p class="stage-objective">Help the audience understand the problem and the value of a practical solution.</p>
+            <div class="stage-example"><span>EXAMPLE POST</span><p>Three common budgeting mistakes — and practical ways to address them.</p></div>
+          </article>
+          <article class="marketing-stage">
+            <div class="stage-marker"><span>03</span><i></i></div>
+            <h3>CONVERT</h3>
+            <p class="stage-objective">Introduce the digital product as a practical next step.</p>
+            <div class="stage-example"><span>EXAMPLE POST</span><p>Show how the 30-Day Money Reset toolkit can help organize personal finances.</p></div>
+          </article>
+          <article class="marketing-stage marketing-stage--optimize">
+            <div class="stage-marker"><span>04</span><i></i></div>
+            <h3>OPTIMIZE</h3>
+            <p class="stage-objective">Use available data to improve product presentation, messaging, and the customer journey.</p>
+            <div class="metric-list"><span>PROPOSED MEASUREMENT CRITERIA</span><p>Content engagement · Product page visits · Click-through rate · Conversion rate · Refund rate</p></div>
+          </article>
+        </div>
+
+        <div class="journey-band">
+          <div class="journey-label"><span>EXAMPLE JOURNEY</span><small>EDUCATION → PRODUCT DISCOVERY</small></div>
+          <div class="journey-node"><span>01</span><b>Educational post</b><small>Three budgeting mistakes</small></div>
+          <span class="journey-arrow" aria-hidden="true">→</span>
+          <div class="journey-node journey-node--highlight"><span>02</span><b>Useful next step</b><small>30-Day Money Reset toolkit</small></div>
+          <span class="journey-note">A proposed path, not a guaranteed conversion.</span>
+        </div>
+        <div class="optimization-loop" aria-label="Repeatable process: publish, observe, learn and refine">
+          <span class="loop-label">THE OPERATING LOOP</span>
+          <div class="loop-sequence"><b>PUBLISH</b><i aria-hidden="true">→</i><b>OBSERVE</b><i aria-hidden="true">→</i><b>LEARN</b><i aria-hidden="true">→</i><b>REFINE</b></div>
+          <span class="loop-note">A repeatable process, not a promise of results.</span>
+        </div>
+        <div class="marketing-closer"><span class="lime-square"></span><p>Strategy creates the structure.<br><strong>Real data tells us what to improve.</strong></p></div>
+      </div>
+    </section>
+
+    <!-- 05 / MONETIZATION MODEL -->
+    <section class="chapter chapter--dark business" id="business-model" aria-labelledby="business-title" data-chapter-index="04">
+      <div class="wrap">
+        <div class="section-kicker section-kicker--dark"><span>04 / MONETIZATION MODEL</span><span class="kicker-rule"></span><span>COMMERCIAL LOGIC, MADE CLEAR</span></div>
+        <div class="business-heading">
+          <h2 id="business-title">Build an asset.<br><em>Create a path to revenue.</em></h2>
+          <p class="section-intro">Nuvora's proposed partnership model aligns product development and marketing efforts with the creator's monetization opportunity.</p>
+        </div>
+
+        <div class="contribution-model">
+          <div class="contribution-side">
+            <div class="contribution-heading"><span>PARTNER INPUT / A</span><h3>CREATOR</h3></div>
+            <ul><li>Existing audience</li><li>Expertise and subject knowledge</li><li>Creator identity and audience relationship</li><li>Content distribution and promotion</li></ul>
+          </div>
+          <div class="contribution-join" aria-hidden="true"><span>+</span><i></i></div>
+          <div class="contribution-side contribution-side--nuvora">
+            <div class="contribution-heading"><span>PARTNER INPUT / B</span><h3>NUVORA</h3></div>
+            <ul><li>Product opportunity research</li><li>Digital product development</li><li>Product positioning</li><li>Marketing strategy</li><li>Sales messaging</li><li>Monetization system planning</li></ul>
+          </div>
+        </div>
+        <aside class="terms-note" aria-label="Topics partners should agree before launch">
+          <div class="terms-intro"><span class="terms-index">BEFORE LAUNCH / AGREE TOGETHER</span><h3>Define the working terms before sales begin.</h3></div>
+          <ul class="terms-checklist">
+            <li><span>01</span>Revenue share</li>
+            <li><span>02</span>Responsibilities + approvals</li>
+            <li><span>03</span>Product ownership + usage rights</li>
+            <li><span>04</span>Fees, refunds + taxes</li>
+            <li><span>05</span>Reporting + settlement schedule</li>
+          </ul>
+          <p>Illustrative only. No split, forecast, or deal terms are assumed.</p>
+        </aside>
+
+        <div class="revenue-block">
+          <div class="revenue-head">
+            <div><span class="micro-label">SIMULATED GROSS REVENUE</span><h3>One illustrative price.<br><em>Three sales scenarios.</em></h3></div>
+            <div class="unit-price"><span>ILLUSTRATIVE PRODUCT PRICE</span><b>Rp49.000</b><small>per sale</small></div>
+          </div>
+          <div class="revenue-chart" role="img" aria-label="Illustrative gross revenue: 100 sales equals Rp4.900.000, 250 sales equals Rp12.250.000, 500 sales equals Rp24.500.000. Bars are proportional to gross revenue.">
+            <div class="chart-axis"><span>SALES</span><span>GROSS REVENUE (IDR)</span><span class="axis-end">RELATIVE SCALE / 0–100%</span></div>
+            <div class="chart-row"><span class="scenario-label">SCENARIO A <b>100 SALES</b></span><div class="bar-track"><i style="width:20%"></i></div><strong>Rp4.900.000</strong></div>
+            <div class="chart-row"><span class="scenario-label">SCENARIO B <b>250 SALES</b></span><div class="bar-track"><i style="width:50%"></i></div><strong>Rp12.250.000</strong></div>
+            <div class="chart-row chart-row--max"><span class="scenario-label">SCENARIO C <b>500 SALES</b></span><div class="bar-track"><i style="width:100%"></i></div><strong>Rp24.500.000</strong></div>
+            <div class="axis-ticks"><span>0</span><span>Rp12.250.000</span><span>Rp24.500.000</span></div>
+          </div>
+          <p class="revenue-disclaimer">ILLUSTRATIVE SCENARIOS ONLY. NOT ACTUAL RESULTS OR SALES FORECASTS.<br>GROSS REVENUE BEFORE FEES, REFUNDS, TAXES, AND OTHER COSTS. GROSS REVENUE IS NOT PROFIT.</p>
+          <p class="revenue-footnote">These figures describe gross sales at the stated illustrative price. They are not profit and do not indicate how revenue would be divided; any actual arrangement depends on agreed partnership terms.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 06 / PARTNERSHIP + CONTACT -->
+    <section class="chapter chapter--light contact" id="contact" aria-labelledby="contact-title" data-chapter-index="05">
+      <div class="wrap">
+        <div class="section-kicker"><span>05 / LET'S WORK TOGETHER</span><span class="kicker-rule"></span><span>THE NEXT STEP STARTS WITH A CONVERSATION</span></div>
+        <div class="contact-heading">
+          <p class="contact-overline">YOU BUILD THE AUDIENCE.</p>
+          <h2 id="contact-title">WE BUILD<br><em>WHAT THEY BUY.</em></h2>
+          <p class="contact-copy">Have an audience, expertise, or an idea worth turning into a digital product? Nuvora helps creators explore product opportunities, develop useful digital assets, and build a structured marketing system around them.</p>
+        </div>
+
+        <aside class="conversation-starter" aria-label="A useful starting point for a partnership conversation">
+          <div class="starter-lead"><span> A GOOD FIRST CONVERSATION</span><strong>No finished product needed.</strong><small>We can begin with:</small></div>
+          <ul><li>Questions your audience asks</li><li>What you enjoy explaining</li><li>A problem you want to help solve</li></ul>
+        </aside>
+
+        <div class="services-row">
+          <article><span>01 / PRODUCT DEVELOPMENT</span><p>Turn useful knowledge into a well-structured digital product.</p></article>
+          <article><span>02 / MARKETING STRATEGY</span><p>Build a clear path from audience attention to product discovery.</p></article>
+          <article><span>03 / MONETIZATION SYSTEM</span><p>Create a structured approach to presenting, promoting, and selling digital products.</p></article>
+        </div>
+
+        <div class="contact-cta">
+          <div><span class="micro-label">YOUR EXPERTISE. OUR SYSTEM.</span><h3>LET'S BUILD SOMETHING<br>VALUABLE.</h3></div>
+          <a class="primary-button" href="https://wa.me/6285196322176?text=Hi%20Nuvora%21%20I%27m%20interested%20in%20discussing%20a%20potential%20digital%20product%20collaboration.%20I%27d%20love%20to%20learn%20more%20about%20how%20we%20could%20work%20together." target="_blank" rel="noopener noreferrer">LET'S WORK TOGETHER <span aria-hidden="true">↗</span></a>
+        </div>
+
+        <footer class="site-footer">
+          <a class="footer-logo" href="#cover" aria-label="Nuvora.offstage — back to cover"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAABCgAAAQoCAYAAADIaO/8AAAgAElEQVR4AezdW4wk153n93NORFbWtauvbPaNzVuTFEVRI4malTQzWskDeLwzGizswejJT34wbMCA4Xdj2TT8bAOGbcDwk4192REGMDyLWa/htbTw7o5nTc7oSkkj3snmrcm+1i0vEce//4mM6mqS3ayurqyIzPwGlZ23iBMnPicrVfGrc074GKNjQQABBBBAAAEEEEAAAQQQQAABBJoUCE3unH0jgAACCCCAAAIIIIAAAggggAACJkBAwecAAQQQQAABBBBAAAEEEEAAAQQaFyCgaLwJqAACCCCAAAIIIIAAAggggAACCBBQ8BlAAAEEEEAAAQQQQAABBBBAAIHGBQgoGm8CKoAAAggggAACCCCAAAIIIIAAAgQUfAYQQAABBBBAAAEEEEAAAQQQQKBxAQKKxpuACiCAAAIIIIAAAggggAACCCCAAAEFnwEEEEAAAQQQQAABBBBAAAEEEGhcgICi8SagAggggAACCCCAAAIIIIAAAgggQEDBZwABBBBAAAEEEEAAAQQQQAABBBoXIKBovAmoAAIIIIAAAggggAACCCCAAAIIEFDwGUAAAQQQQAABBBBAAAEEEEAAgcYFCCgabwIqgAACCCCAAAIIIIAAAggggAACBBR8BhBAAAEEEEAAAQQQQAABBBBAoHEBAorGm4AKIIAAAggggAACCCCAAAIIIIAAAQWfAQQQQAABBBBAAAEEEEAAAQQQaFyAgKLxJqACCCCAAAIIIIAAAggggAACCCBAQMFnAAEEEEAAAQQQQAABBBBAAAEEGhcgoGi8CagAAggggAACCCCAAAIIIIAAAggQUPAZQAABBBBAAAEEEEAAAQQQQACBxgUIKBpvAiqAAAIIIIAAAggggAACCCCAAAIEFHwGEEAAAQQQQAABBBBAAAEEEECgcQECisabgAoggAACCCCAAAIIIIAAAggggAABBZ8BBBBAAAEEEEAAAQQQQAABBBBoXICAovEmoAIIIIAAAggggAACCCCAAAIIIEBAwWcAAQQQQAABBBBAAAEEEEAAAQQaFyCgaLwJqAACCCCAAAIIIIAAAggggAACCBBQ8BlAAAEEEEAAAQQQQAABBBBAAIHGBQgoGm8CKoAAAggggAACCCCAAAIIIIAAAgQUfAYQQAABBBBA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
+Preview truncated for large I 
